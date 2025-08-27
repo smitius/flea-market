@@ -1,0 +1,75 @@
+:root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+}
+
+body {
+  background-color: var(--color-white);
+  color: #333;
+  font-family: Arial, sans-serif;
+  padding-top: 60px;
+}
+
+.navbar {
+  background-color: #20475f;
+  padding: 0.75rem 1rem;
+}
+
+.navbar-brand, .nav-link {
+  color: var(--color-white) !important;
+}
+
+.nav-link:hover {
+  color: var(--color-red-400) !important;
+  cursor: pointer;
+}
+
+.item-card {
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+}
+
+.item-card.sold {
+  opacity: 0.5;
+  position: relative;
+}
+
+.item-card.sold::after {
+  content: "SÅLD";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-red-400);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+.item-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.hero-section {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .item-card {
+    margin-bottom: 1rem;
+  }
+  .hero-section h1 {
+    font-size: 1.75rem;
+  }
+}

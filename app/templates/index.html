@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Loppis{% endblock %}
+{% block content %}
+  <div class="hero-section text-center mb-5">
+    <h1>Hej och välkomna</h1>
+    <p>
+      Vi rensar ut några saker vi inte längre behöver – men det kan vara precis vad du letar efter. Från användbara vardagssaker till saker som kan ge lite extra glädje, hoppas vi att du hittar något här som passar dig. Ta en titt och hör gärna av dig om något fångar ditt öga!
+    </p>
+    <p>Om du hittar något du gillar och som inte är markerat som sålt, kontakta oss via:</p>
+    <ul class="list-unstyled">
+      <li><strong>WhatsApp/Tel:</strong> 0707447005</li>
+      <li>
+        <strong>Facebook:</strong> du kan skicka meddelanden till oss via BRF Bolinders Terrass-gruppen (Hana Pollak, Peter Smitka)
+      </li>
+      <li><strong>Kom personligen:</strong> Vi bor i entré 11, våning -1, lägenhet 902</li>
+    </ul>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4" id="itemsGrid">
+    {% for item in items %}
+      <div class="col">
+        <div
+          class="card item-card {% if item.is_sold %}sold{% endif %}"
+          data-images="{% for img in item.images %}{{ url_for('static', filename='uploads/' + img.filename) }}{% if not loop.last %},{% endif %}{% endfor %}"
+          title="Click to view images"
+          style="cursor: pointer;"
+        >
+          {% if item.images %}
+            <img
+              src="{{ url_for('static', filename='uploads/' + item.images[0].filename) }}"
+              alt="{{ item.name }}"
+              class="card-img-top item-image"
+            />
+          {% else %}
+            <img
+              src="{{ url_for('static', filename='placeholder.jpg') }}"
+              alt="No image available"
+              class="card-img-top item-image"
+            />
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <p class="card-text"><strong>Pris:</strong> {{ '%.2f' | format(item.price) }} Kr</p>
+            {% if item.is_sold %}
+              <span class="badge bg-danger">Såld</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Image Gallery Modal -->
+  <div
+    class="modal fade"
+    id="imageGalleryModal"
+    tabindex="-1"
+    aria-labelledby="imageGalleryLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageGalleryLabel">Item Images</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-center">
+          <img
+            id="galleryImage"
+            src=""
+            alt="Item image"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-outline-primary" id="prevImage">Previous</button>
+          <button class="btn btn-outline-primary" id="nextImage">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
