@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
+COPY init_db.py .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
@@ -18,4 +19,5 @@ USER appuser
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "run:app"]
+# Use the shell script as the container command
+CMD ["./entrypoint.sh"]

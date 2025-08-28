@@ -1,0 +1,5 @@
+flea_market.db
+*.pyc
+__pycache__
+venv
+*.env

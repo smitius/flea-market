@@ -2,17 +2,17 @@
 {% block title %}Loppis{% endblock %}
 {% block content %}
   <div class="hero-section text-center mb-5">
-    <h1>Hej och välkomna</h1>
+    <h1>Hej och välkommen</h1>
     <p>
-      Vi rensar ut några saker vi inte längre behöver – men det kan vara precis vad du letar efter. Från användbara vardagssaker till saker som kan ge lite extra glädje, hoppas vi att du hittar något här som passar dig. Ta en titt och hör gärna av dig om något fångar ditt öga!
+      Vi rensar ut några saker vi inte längre behöver – och det kan vara precis vad du letar efter. Från användbara vardagssaker till saker som kan ge lite extra glädje, hoppas vi att du hittar något här som passar dig. Ta en titt och hör gärna av dig om något fångar ditt öga!
     </p>
     <p>Om du hittar något du gillar och som inte är markerat som sålt, kontakta oss via:</p>
     <ul class="list-unstyled">
-      <li><strong>WhatsApp/Tel:</strong> 0707447005</li>
+      <li><strong>WhatsApp/Tel:</strong> {{ whatsapp_number }}</li>
       <li>
-        <strong>Facebook:</strong> du kan skicka meddelanden till oss via BRF Bolinders Terrass-gruppen (Hana Pollak, Peter Smitka)
+        <strong>Facebook:</strong> {{ site_name }}
       </li>
-      <li><strong>Kom personligen:</strong> Vi bor i entré 11, våning -1, lägenhet 902</li>
+      <li><strong>Kom personligen:</strong> {{ apartment_address }}</li>
     </ul>
   </div>
 
@@ -41,7 +41,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">{{ item.description }}</p>
-            <p class="card-text"><strong>Pris:</strong> {{ '%.2f' | format(item.price) }} Kr</p>
+            <p class="card-text"><strong>Pris:</strong> <span class="price-value">{{ '%.2f' | format(item.price) }} Kr</span></p>
             {% if item.is_sold %}
               <span class="badge bg-danger">Såld</span>
             {% endif %}
@@ -62,7 +62,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="imageGalleryLabel">Item Images</h5>
+          <h5 class="modal-title" id="imageGalleryLabel">Fler Bilder</h5>
           <button
             type="button"
             class="btn-close"
@@ -79,8 +79,8 @@
           />
         </div>
         <div class="modal-footer justify-content-center">
-          <button class="btn btn-outline-primary" id="prevImage">Previous</button>
-          <button class="btn btn-outline-primary" id="nextImage">Next</button>
+          <button id="prevImage" class="btn btn-secondary">&#x25C0;</button> <!-- ◀ -->
+          <button id="nextImage" class="btn btn-secondary">&#x25B6;</button> <!-- ▶ -->
         </div>
       </div>
     </div>

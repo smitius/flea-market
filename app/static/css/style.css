@@ -73,3 +73,9 @@ body {
     font-size: 1.75rem;
   }
 }
+
+.price-value {
+  font-weight: bold;
+  font-size: 1.25rem; /* Adjust size as needed */
+  color: #20475f; /* Optional: a nice accent color */
+}

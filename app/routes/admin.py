@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, jsonify
 from flask_login import login_required
 from werkzeug.utils import secure_filename
-from PIL import Image
+from PIL import Image, ImageOps
 from app import db
 from app.models import Item, ItemImage
 
@@ -68,10 +68,24 @@ def edit_item(item_id):
 @login_required
 def delete_item(item_id):
     item = Item.query.get_or_404(item_id)
+
+    # Delete associated image files from disk
+    for img in item.images:
+        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], img.filename)
+        try:
+            if os.path.exists(filepath):
+                os.remove(filepath)
+                current_app.logger.info(f"Deleted image file: {filepath}")
+        except Exception as e:
+            current_app.logger.error(f"Failed to delete {filepath}: {e}")
+
+    # Then delete the item record and cascade delete images from DB
     db.session.delete(item)
     db.session.commit()
-    flash('Item deleted')
+
+    flash('Item deleted along with its images')
     return redirect(url_for('admin.dashboard'))
+
 
 @admin.route('/upload', methods=['POST'])
 @login_required
@@ -87,6 +101,10 @@ def upload_file():
         filename = secure_filename(file.filename)
         filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         image = Image.open(file)
+
+        # Automatically rotate to correct orientation using EXIF
+        image = ImageOps.exif_transpose(image)
+
         image.thumbnail((800, 600), Image.Resampling.LANCZOS)
         image.save(filepath, optimize=True, quality=85)
         return jsonify({'filename': filename}), 200
