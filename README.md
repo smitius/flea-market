@@ -1,8 +1,8 @@
 # Flea Market App
 
-A simple web application for managing and displaying items for sale in a local flea market.  
+A simple web application for managing and displaying items for sale in a local flea market (loppis in Sweden).  
 Admins can add, edit, and delete items, upload images, and manage users.  
-Visitors can browse available items and contact the seller.
+Visitors can browse available items and contact the seller using the information you decide to share. 
 
 ---
 
@@ -63,6 +63,7 @@ Visitors can browse available items and contact the seller.
    ```sh
    python init_db.py
    ```
+This is mostly for running it localy or testing. The script will initiate the DB file, create admin user and a demo item.
 
 6. **Run the app:**
    ```sh
@@ -76,12 +77,24 @@ Visitors can browse available items and contact the seller.
 
 You can also run the app using Docker:
 
-```sh
-docker build -t flea-market-app .
-docker run -p 5000:5000 flea-market-app
-```
+I built an image so you can just run it with:
 
-Or use `docker-compose` for persistent storage (see `docker-compose.yml`).
+```sh
+docker run -d -p 8111:5000 `
+-v flea-market-uploads:/app/app/static/uploads `
+-v flea-market-db:/app/instance `
+-e FLASK_ENV=production `
+-e SECRET_KEY=somethingsomethingelse `
+-e ADMIN_USERNAME=admin `
+-e ADMIN_PASSWORD=admin `
+-e SITE_NAME=something `
+-e WHATSAPP_NUMBER=+4670777777 `
+-e APARTMENT_ADDRESS=something else `
+smintik/flea-market-app:latest
+```
+It will create a container listening on port 8111. There are two persistent volumes one for the images attached to the items and one for the DB file. 
+
+Note: the envs are a bit of a mess with naming but you get basically 3 inputs to modify the text on the main page. Mostly for people to know how to contact you. I might need to rework that in the future and put it into the admin form. 
 
 ---
 
@@ -110,4 +123,4 @@ MIT License or whatever...
 
 ## Credits
 
-I developed this using some AI tools and a bit of time. It was fun and it is useful.
+I developed this using some AI tools help and a bit of time. It was fun and it is useful to me, it might be to you too. 
