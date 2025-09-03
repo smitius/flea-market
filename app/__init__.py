@@ -10,7 +10,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 def create_app():
-    load_dotenv()  # <-- Ensure .env is loaded here
+    load_dotenv()  
 
     app = Flask(__name__)
     app.config.from_object(Config)

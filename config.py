@@ -3,7 +3,6 @@ import os
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key'
     basedir = os.path.abspath(os.path.dirname(__file__))
-    # Always use the instance folder for the database
     instance_dir = os.path.join(basedir, 'instance')
     os.makedirs(instance_dir, exist_ok=True)
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \

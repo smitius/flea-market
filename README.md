@@ -87,9 +87,9 @@ docker run -d -p 8111:5000 `
 -e SECRET_KEY=somethingsomethingelse `
 -e ADMIN_USERNAME=admin `
 -e ADMIN_PASSWORD=admin `
--e SITE_NAME=something `
--e WHATSAPP_NUMBER=+4670777777 `
--e APARTMENT_ADDRESS=something else `
+-e SITE_NAME="something" `
+-e WHATSAPP_NUMBER="+4670777777" `
+-e APARTMENT_ADDRESS="something else" `
 smintik/flea-market-app:latest
 ```
 It will create a container listening on port 8111. There are two persistent volumes one for the images attached to the items and one for the DB file. 
