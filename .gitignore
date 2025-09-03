@@ -5,7 +5,10 @@ env/
 .venv/
 
 # Ignore SQLite database file
-flea_market.db
+instance/flea_market.db
 
 # Ignore environment variable files
 .env
+
+# Ignore __pycache__ directories
+__pycache__/

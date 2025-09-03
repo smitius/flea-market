@@ -2,15 +2,15 @@
 {% block title %}Loppis{% endblock %}
 {% block content %}
   <div class="hero-section text-center mb-5">
-    <h1>Hej och välkommen</h1>
+    <h1>Hej och Välkommen</h1>
     <p>
       Vi rensar ut några saker vi inte längre behöver – och det kan vara precis vad du letar efter. Från användbara vardagssaker till saker som kan ge lite extra glädje, hoppas vi att du hittar något här som passar dig. Ta en titt och hör gärna av dig om något fångar ditt öga!
     </p>
     <p>Om du hittar något du gillar och som inte är markerat som sålt, kontakta oss via:</p>
     <ul class="list-unstyled">
-      <li><strong>WhatsApp/Tel:</strong> {{ whatsapp_number }}</li>
+      <li><strong>Chat:</strong> {{ whatsapp_number }}</li>
       <li>
-        <strong>Facebook:</strong> {{ site_name }}
+        <strong>Kontakt:</strong> {{ site_name }}
       </li>
       <li><strong>Kom personligen:</strong> {{ apartment_address }}</li>
     </ul>
@@ -21,19 +21,27 @@
       <div class="col">
         <div
           class="card item-card {% if item.is_sold %}sold{% endif %}"
-          data-images="{% for img in item.images %}{{ url_for('static', filename='uploads/' + img.filename) }}{% if not loop.last %},{% endif %}{% endfor %}"
+          data-images="{% for img in item.images %}
+    {% if img.filename in ['demo.jpg', 'noimage.jpeg'] %}
+      {{ url_for('static', filename=img.filename) }}
+    {% else %}
+      {{ url_for('static', filename='uploads/' + img.filename) }}
+    {% endif %}
+    {% if not loop.last %},{% endif %}
+  {% endfor %}"
           title="Click to view images"
           style="cursor: pointer;"
         >
-          {% if item.images %}
-            <img
-              src="{{ url_for('static', filename='uploads/' + item.images[0].filename) }}"
-              alt="{{ item.name }}"
-              class="card-img-top item-image"
-            />
+          {% set primary_image = (item.images|selectattr('is_primary')|first) or (item.images[0] if item.images else None) %}
+          {% if primary_image %}
+            {% if primary_image.filename in ['demo.jpg', 'noimage.jpeg'] %}
+              <img src="{{ url_for('static', filename=primary_image.filename) }}">
+            {% else %}
+              <img src="{{ url_for('static', filename='uploads/' + primary_image.filename) }}">
+            {% endif %}
           {% else %}
             <img
-              src="{{ url_for('static', filename='placeholder.jpg') }}"
+              src="{{ url_for('static', filename='noimage.jpeg') }}"
               alt="No image available"
               class="card-img-top item-image"
             />

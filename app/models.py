@@ -29,6 +29,6 @@ class Item(db.Model):
 
 class ItemImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(128), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
-    filename = db.Column(db.String(100), nullable=False)
     is_primary = db.Column(db.Boolean, default=False)

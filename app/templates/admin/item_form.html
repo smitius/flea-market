@@ -40,13 +40,41 @@
       />
       <label class="form-check-label" for="is_sold">Mark as Sold</label>
     </div>
-    {% if not item %}
+    {% if item %}
     <div class="mb-3">
-      <label for="images" class="form-label">Upload Images</label>
-      <input type="file" class="form-control" id="images" name="images" multiple />
-
+      <label>Existing Images:</label>
+      <div class="row">
+        {% for img in item.images %}
+          <div class="col-4 mb-2">
+            {% if img.filename in ['demo.jpg', 'noimage.jpeg'] %}
+              <img src="{{ url_for('static', filename=img.filename) }}" class="img-thumbnail" style="max-height:100px;">
+            {% else %}
+              <img src="{{ url_for('static', filename='uploads/' + img.filename) }}" class="img-thumbnail" style="max-height:100px;">
+            {% endif %}
+            <div>
+              <input type="checkbox" name="delete_images" value="{{ img.id }}"> Delete<br>
+              <input type="radio" name="primary_image" value="{{ img.id }}" {% if img.is_primary %}checked{% endif %}> Primary
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
     {% endif %}
+    <div class="mb-3">
+      <label for="images">Add Images</label>
+      <input type="file" name="images" id="images" multiple accept="image/*" class="form-control">
+    </div>
     <button type="submit" class="btn btn-primary">{{ 'Update' if item else 'Add' }}</button>
   </form>
+  <!--{% if item and item.images %}
+    {# Show the primary image #}
+    {% set primary_image = (item.images|selectattr('is_primary')|first) or item.images[0] %}
+    {% if primary_image.filename in ['demo.jpg', 'noimage.jpeg'] %}
+      <img src="{{ url_for('static', filename=primary_image.filename) }}" class="img-thumbnail" style="max-height:100px;">
+    {% else %}
+      <img src="{{ url_for('static', filename='uploads/' + primary_image.filename) }}" class="img-thumbnail" style="max-height:100px;">
+    {% endif %}
+  {% else %}
+    <img src="{{ url_for('static', filename='noimage.jpeg') }}" class="img-thumbnail" style="max-height:100px;">
+  {% endif %}-->
 {% endblock %}

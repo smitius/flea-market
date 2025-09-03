@@ -28,4 +28,23 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <div class="card mt-5" style="max-width: 300px; margin: 0 auto;">
+    <div class="card-header">
+      Admin Navigation
+    </div>
+    <ul class="nav flex-column card-body">
+      <li class="nav-item mb-2">
+        <a class="nav-link p-0" href="{{ url_for('admin.dashboard') }}">
+          <i class="fa fa-tachometer-alt"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-0" href="{{ url_for('admin.change_password') }}">
+          <i class="fa fa-key"></i> Change Password
+        </a>
+      </li>
+      <!-- Add other admin links here -->
+    </ul>
+  </div>
 {% endblock %}

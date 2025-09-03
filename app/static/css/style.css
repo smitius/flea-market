@@ -79,3 +79,74 @@ body {
   font-size: 1.25rem; /* Adjust size as needed */
   color: #20475f; /* Optional: a nice accent color */
 }
+
+/* Change Password Form Styles */
+.change-password-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(32, 71, 95, 0.08);
+}
+
+.change-password-form h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #20475f;
+}
+
+.change-password-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #20475f;
+  font-weight: bold;
+}
+
+.change-password-form input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #a7a9a9;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.change-password-form button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background: #20475f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.change-password-form button[type="submit"]:hover {
+  background: var(--color-red-400);
+}
+
+.change-password-form ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+  color: var(--color-red-400);
+}
+
+.card .nav-link {
+  color: #20475f !important; /* or any dark color you prefer */
+}
+
+.card .nav-link:hover {
+  color: var(--color-red-400) !important;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background: #f8f9fa;
+  color: #20475f;
+  font-size: 1rem;
+}

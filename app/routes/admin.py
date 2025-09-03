@@ -1,7 +1,8 @@
 import os
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash
 from PIL import Image, ImageOps
 from app import db
 from app.models import Item, ItemImage
@@ -58,8 +59,43 @@ def edit_item(item_id):
         item.price = request.form.get('price', type=float)
         item.is_sold = bool(request.form.get('is_sold'))
 
+        # Handle image deletions
+        images_to_delete = request.form.getlist('delete_images')
+        for img_id in images_to_delete:
+            img = ItemImage.query.get(int(img_id))
+            if img and img in item.images:
+                # Delete the file from the uploads folder
+                image_path = os.path.join(current_app.root_path, 'static', 'uploads', img.filename)
+                # Only delete if not a protected static image
+                if img.filename not in ['noimage.jpeg', 'demo.jpg']:
+                    try:
+                        if os.path.exists(image_path):
+                            os.remove(image_path)
+                    except Exception as e:
+                        print(f"Error deleting file {img.filename}: {e}")
+                else:
+                    print(f"Skipped deleting protected image: {img.filename}")
+                db.session.delete(img)
         db.session.commit()
-        flash('Item updated successfully')
+
+        # Handle new uploads
+        files = request.files.getlist('images')
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(current_app.root_path, 'static/uploads', filename))
+                new_img = ItemImage(filename=filename, item_id=item.id)
+                db.session.add(new_img)
+        db.session.commit()
+
+        # Handle primary image selection
+        primary_image_id = request.form.get('primary_image')
+        if primary_image_id:
+            for img in item.images:
+                img.is_primary = (str(img.id) == primary_image_id)
+            db.session.commit()
+
+        flash('Item updated successfully.', 'success')
         return redirect(url_for('admin.dashboard'))
 
     return render_template('admin/item_form.html', item=item)
@@ -110,3 +146,25 @@ def upload_file():
         return jsonify({'filename': filename}), 200
 
     return jsonify({'error': 'File type not allowed'}), 400
+
+@admin.route('/change-password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    if request.method == 'POST':
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        if not current_user.check_password(current_password):
+            flash('Current password is incorrect.', 'danger')
+        elif new_password != confirm_password:
+            flash('New passwords do not match.', 'danger')
+        elif len(new_password) < 6:
+            flash('New password must be at least 6 characters.', 'danger')
+        else:
+            current_user.set_password(new_password)
+            db.session.commit()
+            flash('Password changed successfully.', 'success')
+            return redirect(url_for('admin.dashboard'))
+
+    return render_template('admin/change_password.html')
