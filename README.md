@@ -1,5 +1,17 @@
 flea-market app
 
+
+git:
+
+3405  git init
+3406  git add .
+3407  git commit -m "first commit"
+3408  git remote add origin git@github.com:smitius/flea-market.git
+3409  git branch -M main
+3410  git push -u origin main
+
+python version:
+
 docker buildx create --use
 docker buildx inspect --bootstrap
 
