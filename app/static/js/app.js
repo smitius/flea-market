@@ -35,6 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.item-card').forEach((card) => {
     card.addEventListener('click', () => {
       const data = card.getAttribute('data-images');
+      const itemId = card.getAttribute('data-item-id');
+      
+      // Track the view
+      if (itemId) {
+        fetch(`/item/${itemId}/view`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).catch(error => {
+          console.log('View tracking failed:', error);
+        });
+      }
+      
       if (!data) return;
       images = data.split(',');
       showImage(0);

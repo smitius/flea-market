@@ -21,6 +21,7 @@
       <div class="col">
         <div
           class="card item-card {% if item.is_sold %}sold{% endif %}"
+          data-item-id="{{ item.id }}"
           data-images="{% for img in item.images %}
     {% if img.filename in ['demo.jpg', 'noimage.jpeg'] %}
       {{ url_for('static', filename=img.filename) }}

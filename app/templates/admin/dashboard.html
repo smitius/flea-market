@@ -2,12 +2,26 @@
 {% block title %}Admin Dashboard{% endblock %}
 {% block content %}
   <h2 class="mb-4">Admin Dashboard</h2>
-  <a href="{{ url_for('admin.new_item') }}" class="btn btn-success mb-3">Add New Item</a>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ url_for('admin.new_item') }}" class="btn btn-success">Add New Item</a>
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Sort by: {% if current_sort == 'views' %}Views{% elif current_sort == 'name' %}Name{% elif current_sort == 'price' %}Price{% else %}Date Created{% endif %}
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='created_at') }}">Date Created</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='views') }}">Most Viewed</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='name') }}">Name</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='price') }}">Price</a></li>
+      </ul>
+    </div>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>
         <th>Price</th>
+        <th>Views</th>
         <th>Sold</th>
         <th>Actions</th>
       </tr>
@@ -17,6 +31,9 @@
         <tr>
           <td>{{ item.name }}</td>
           <td>${{ '%.2f' | format(item.price) }}</td>
+          <td>
+            <span class="badge bg-info">{{ item.view_count or 0 }}</span>
+          </td>
           <td>{{ 'Yes' if item.is_sold else 'No' }}</td>
           <td>
             <a href="{{ url_for('admin.edit_item', item_id=item.id) }}" class="btn btn-primary btn-sm">Edit</a>

@@ -17,8 +17,18 @@ admin = Blueprint('admin', __name__)
 @admin.route('/dashboard')
 @login_required
 def dashboard():
-    items = Item.query.order_by(Item.created_at.desc()).all()
-    return render_template('admin/dashboard.html', items=items)
+    sort_by = request.args.get('sort', 'created_at')
+    
+    if sort_by == 'views':
+        items = Item.query.order_by(Item.view_count.desc()).all()
+    elif sort_by == 'name':
+        items = Item.query.order_by(Item.name.asc()).all()
+    elif sort_by == 'price':
+        items = Item.query.order_by(Item.price.desc()).all()
+    else:  # default to created_at
+        items = Item.query.order_by(Item.created_at.desc()).all()
+    
+    return render_template('admin/dashboard.html', items=items, current_sort=sort_by)
 
 @admin.route('/item/new', methods=['GET', 'POST'])
 @login_required

@@ -25,6 +25,7 @@ class Item(db.Model):
     price = db.Column(db.Float, nullable=False)
     is_sold = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    view_count = db.Column(db.Integer, default=0)
     images = db.relationship('ItemImage', backref='item', lazy=True, cascade='all, delete-orphan')
 
 class ItemImage(db.Model):
