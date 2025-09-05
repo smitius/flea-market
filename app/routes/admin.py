@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from PIL import Image, ImageOps
 from app import db
-from app.models import Item, ItemImage, SiteSettings, UserSession
+from app.models import Item, ItemImage, SiteSettings, UserSession, FailedLoginAttempt
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
@@ -34,13 +34,20 @@ def dashboard():
         is_active=True
     ).order_by(UserSession.last_activity.desc()).all()
     
-    # Clean up expired sessions
+    # Clean up expired sessions and old failed attempts
     UserSession.cleanup_expired_sessions()
+    FailedLoginAttempt.cleanup_old_attempts()
+    
+    # Get recent failed login attempts for security monitoring
+    recent_failed_attempts = FailedLoginAttempt.query.order_by(
+        FailedLoginAttempt.attempted_at.desc()
+    ).limit(10).all()
     
     return render_template('admin/dashboard.html', 
                          items=items, 
                          current_sort=sort_by,
-                         active_sessions=active_sessions)
+                         active_sessions=active_sessions,
+                         recent_failed_attempts=recent_failed_attempts)
 
 @admin.route('/item/new', methods=['GET', 'POST'])
 @login_required
@@ -70,6 +77,10 @@ def new_item():
                 item_image = ItemImage(item_id=item.id, filename=filename)
                 db.session.add(item_image)
         db.session.commit()
+        
+        # Log item creation
+        current_app.logger.info(f'User {current_user.username} created item: {name} (ID: {item.id})')
+        
         flash('Item added successfully', 'success')
         return redirect(url_for('admin.dashboard'))
 
@@ -128,6 +139,9 @@ def edit_item(item_id):
                 img.is_primary = (str(img.id) == primary_image_id)
             db.session.commit()
 
+        # Log item update
+        current_app.logger.info(f'User {current_user.username} updated item: {item.name} (ID: {item.id})')
+        
         flash('Item updated successfully.', 'success')
         return redirect(url_for('admin.dashboard'))
 
@@ -148,6 +162,9 @@ def delete_item(item_id):
         except Exception as e:
             current_app.logger.error(f"Failed to delete {filepath}: {e}")
 
+    # Log item deletion
+    current_app.logger.info(f'User {current_user.username} deleted item: {item.name} (ID: {item.id})')
+    
     # Then delete the item record and cascade delete images from DB
     db.session.delete(item)
     db.session.commit()
@@ -204,6 +221,10 @@ def change_password():
         else:
             current_user.set_password(new_password)
             db.session.commit()
+            
+            # Log password change
+            current_app.logger.info(f'User {current_user.username} changed password from {request.remote_addr}')
+            
             flash('Password changed successfully.', 'success')
             return redirect(url_for('admin.dashboard'))
 
@@ -232,7 +253,34 @@ def site_settings():
         else:
             settings.updated_at = db.func.now()
             db.session.commit()
+            
+            # Log settings update
+            current_app.logger.info(f'User {current_user.username} updated site settings')
+            
             flash('Site settings updated successfully.', 'success')
             return redirect(url_for('admin.site_settings'))
     
     return render_template('admin/site_settings.html', settings=settings)
+
+@admin.route('/logs')
+@login_required
+def view_logs():
+    """View recent application logs (admin only)"""
+    try:
+        log_file = 'logs/flea_market.log'
+        if os.path.exists(log_file):
+            with open(log_file, 'r') as f:
+                # Get last 100 lines
+                lines = f.readlines()
+                recent_logs = lines[-100:] if len(lines) > 100 else lines
+                recent_logs.reverse()  # Show newest first
+        else:
+            recent_logs = ['No log file found']
+        
+        current_app.logger.info(f'User {current_user.username} viewed application logs')
+        return render_template('admin/logs.html', logs=recent_logs)
+        
+    except Exception as e:
+        current_app.logger.error(f'Error reading log file: {str(e)}')
+        flash('Error reading log file', 'danger')
+        return redirect(url_for('admin.dashboard'))

@@ -8,7 +8,7 @@ app = create_app()
 app.app_context().push()
 
 # Import models AFTER app context is pushed, but BEFORE db.create_all()
-from app.models import User, Item, ItemImage, SiteSettings, UserSession
+from app.models import User, Item, ItemImage, SiteSettings, UserSession, FailedLoginAttempt
 from sqlalchemy import inspect
 
 db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')

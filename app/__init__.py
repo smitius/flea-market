@@ -1,14 +1,22 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from dotenv import load_dotenv
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 from datetime import timedelta
 from config import Config
 from version import APP_NAME, APP_VERSION
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
 
 def create_app():
     load_dotenv()  
@@ -31,6 +39,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
+    limiter.init_app(app)
     
     # Update session activity on each request
     @app.before_request
@@ -73,4 +82,124 @@ def create_app():
             settings=settings
         )
 
+    # Configure logging
+    configure_logging(app)
+    
+    # Add error handlers
+    register_error_handlers(app)
+    
+    # Add security headers
+    add_security_headers(app)
+
     return app
+
+def configure_logging(app):
+    """Configure application logging"""
+    
+    # Don't configure logging if we're in testing mode
+    if app.testing:
+        return
+    
+    # Set log level based on environment
+    flask_env = os.getenv('FLASK_ENV', 'development')
+    if flask_env == 'production':
+        log_level = logging.INFO
+    else:
+        log_level = logging.DEBUG
+    
+    # Create logs directory if it doesn't exist
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    
+    # Configure file handler with rotation
+    file_handler = RotatingFileHandler(
+        'logs/flea_market.log', 
+        maxBytes=10240000,  # 10MB
+        backupCount=10
+    )
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(log_level)
+    
+    # Configure console handler for Docker logs
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s'
+    ))
+    console_handler.setLevel(log_level)
+    
+    # Clear existing handlers to avoid duplicates
+    app.logger.handlers.clear()
+    
+    # Add handlers to app logger
+    app.logger.addHandler(file_handler)
+    app.logger.addHandler(console_handler)
+    app.logger.setLevel(log_level)
+    
+    # Don't prevent propagation in development
+    if flask_env == 'production':
+        app.logger.propagate = False
+    
+    # Log startup
+    app.logger.info(f'{APP_NAME} v{APP_VERSION} startup')
+    app.logger.info(f'Environment: {flask_env}')
+    app.logger.info(f'Log level: {logging.getLevelName(log_level)}')
+
+def register_error_handlers(app):
+    """Register error handlers with logging"""
+    
+    @app.errorhandler(404)
+    def not_found_error(error):
+        from flask import request, render_template
+        app.logger.warning(f'404 error: {request.url} from {request.remote_addr}')
+        return render_template('errors/404.html'), 404
+    
+    @app.errorhandler(500)
+    def internal_error(error):
+        from flask import request, render_template
+        app.logger.error(f'500 error: {request.url} from {request.remote_addr}', exc_info=True)
+        db.session.rollback()
+        return render_template('errors/500.html'), 500
+    
+    @app.errorhandler(429)
+    def ratelimit_handler(error):
+        from flask import request, render_template
+        app.logger.warning(f'Rate limit exceeded: {request.url} from {request.remote_addr}')
+        return render_template('errors/429.html'), 429
+    
+    @app.errorhandler(Exception)
+    def handle_exception(error):
+        from flask import request, render_template
+        app.logger.error(f'Unhandled exception: {request.url} from {request.remote_addr}', exc_info=True)
+        db.session.rollback()
+        return render_template('errors/500.html'), 500
+
+def add_security_headers(app):
+    """Add security headers to all responses"""
+    
+    @app.after_request
+    def set_security_headers(response):
+        # Prevent clickjacking
+        response.headers['X-Frame-Options'] = 'DENY'
+        
+        # Prevent MIME type sniffing
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        
+        # XSS protection
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        
+        # Referrer policy
+        response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+        
+        # Content Security Policy (basic)
+        response.headers['Content-Security-Policy'] = (
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+            "font-src 'self' https://cdnjs.cloudflare.com; "
+            "img-src 'self' data:; "
+            "connect-src 'self';"
+        )
+        
+        return response

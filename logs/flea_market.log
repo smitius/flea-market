@@ -1,0 +1,203 @@
+2025-09-05 23:37:52,815 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:127]
+2025-09-05 23:37:52,817 INFO: Environment: unknown [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:128]
+2025-09-05 23:37:52,818 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:129]
+2025-09-05 23:39:58,946 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:127]
+2025-09-05 23:39:58,947 INFO: Environment: unknown [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:128]
+2025-09-05 23:39:58,948 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:129]
+2025-09-05 23:41:50,181 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:127]
+2025-09-05 23:41:50,182 INFO: Environment: unknown [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:128]
+2025-09-05 23:41:50,183 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:129]
+2025-09-05 23:44:46,451 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:127]
+2025-09-05 23:44:46,452 INFO: Environment: unknown [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:128]
+2025-09-05 23:44:46,453 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:129]
+2025-09-05 23:46:22,278 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:134]
+2025-09-05 23:46:22,279 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:135]
+2025-09-05 23:46:22,279 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:136]
+2025-09-05 23:48:48,262 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:135]
+2025-09-05 23:48:48,263 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:136]
+2025-09-05 23:48:48,264 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:137]
+2025-09-05 23:49:04,523 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:135]
+2025-09-05 23:49:04,524 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:136]
+2025-09-05 23:49:04,525 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:137]
+2025-09-05 23:50:15,099 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:135]
+2025-09-05 23:50:15,100 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:136]
+2025-09-05 23:50:15,101 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:137]
+2025-09-05 23:50:25,139 INFO: User admin viewed application logs [in C:\Users\peter\Documents\flea-market-app\app\routes\admin.py:273]
+2025-09-05 23:50:52,427 INFO: User admin logged out from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:51]
+2025-09-05 23:51:01,258 INFO: Login attempt received [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:13]
+2025-09-05 23:51:01,262 WARNING: Failed login attempt for username: asdmin from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:43]
+2025-09-05 23:51:18,273 INFO: Login attempt received [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:13]
+2025-09-05 23:51:18,919 INFO: User admin logged in successfully from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:38]
+2025-09-05 23:51:21,281 INFO: User admin viewed application logs [in C:\Users\peter\Documents\flea-market-app\app\routes\admin.py:273]
+2025-09-06 00:09:59,254 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]
+2025-09-06 00:09:59,255 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:147]
+2025-09-06 00:09:59,256 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:148]
+2025-09-06 00:10:09,819 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]
+2025-09-06 00:10:09,820 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:147]
+2025-09-06 00:10:09,820 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:148]
+2025-09-06 00:10:21,507 INFO: User admin logged out from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:66]
+2025-09-06 00:10:29,834 ERROR: Unhandled exception: http://127.0.0.1:5000/auth/login from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:175]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\app\routes\auth.py", line 17, in login
+    if FailedLoginAttempt.is_ip_blocked(request.remote_addr):
+  File "C:\Users\peter\Documents\flea-market-app\app\models.py", line 94, in is_ip_blocked
+    cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+NameError: name 'timedelta' is not defined
+2025-09-06 00:10:29,845 ERROR: Exception on /auth/login [POST] [in C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py:1414]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\app\routes\auth.py", line 17, in login
+    if FailedLoginAttempt.is_ip_blocked(request.remote_addr):
+  File "C:\Users\peter\Documents\flea-market-app\app\models.py", line 94, in is_ip_blocked
+    cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+NameError: name 'timedelta' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1348, in handle_user_exception
+    return self.ensure_sync(handler)(e)
+  File "C:\Users\peter\Documents\flea-market-app\app\__init__.py", line 177, in handle_exception
+    return render_template('errors/500.html'), 500
+NameError: name 'render_template' is not defined
+2025-09-06 00:10:29,854 ERROR: 500 error: http://127.0.0.1:5000/auth/login from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:162]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\app\routes\auth.py", line 17, in login
+    if FailedLoginAttempt.is_ip_blocked(request.remote_addr):
+  File "C:\Users\peter\Documents\flea-market-app\app\models.py", line 94, in is_ip_blocked
+    cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+NameError: name 'timedelta' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1348, in handle_user_exception
+    return self.ensure_sync(handler)(e)
+  File "C:\Users\peter\Documents\flea-market-app\app\__init__.py", line 177, in handle_exception
+    return render_template('errors/500.html'), 500
+NameError: name 'render_template' is not defined
+2025-09-06 00:10:29,993 WARNING: 404 error: http://127.0.0.1:5000/favicon.ico from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:156]
+2025-09-06 00:10:29,994 ERROR: Exception on /favicon.ico [GET] [in C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py:1414]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\werkzeug\routing\map.py", line 655, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "C:\Users\peter\Documents\flea-market-app\app\__init__.py", line 157, in not_found_error
+    return render_template('errors/404.html'), 404
+NameError: name 'render_template' is not defined
+2025-09-06 00:10:30,043 ERROR: 500 error: http://127.0.0.1:5000/favicon.ico from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:162]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1458, in dispatch_request
+    self.raise_routing_exception(req)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1440, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\ctx.py", line 353, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\werkzeug\routing\map.py", line 655, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1341, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1281, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "C:\Users\peter\Documents\flea-market-app\app\__init__.py", line 157, in not_found_error
+    return render_template('errors/404.html'), 404
+NameError: name 'render_template' is not defined
+2025-09-06 00:15:14,571 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:145]
+2025-09-06 00:15:14,572 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]
+2025-09-06 00:15:14,572 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:147]
+2025-09-06 00:15:23,920 ERROR: Unhandled exception: http://127.0.0.1:5000/auth/login from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:174]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\app\routes\auth.py", line 16, in login
+    if FailedLoginAttempt.is_ip_blocked(request.remote_addr):
+  File "C:\Users\peter\Documents\flea-market-app\app\models.py", line 94, in is_ip_blocked
+    cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+NameError: name 'timedelta' is not defined
+2025-09-06 00:15:37,023 ERROR: Unhandled exception: http://127.0.0.1:5000/auth/login from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:174]
+Traceback (most recent call last):
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "C:\Users\peter\Documents\flea-market-app\venv\lib\site-packages\flask_limiter\extension.py", line 1298, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+  File "C:\Users\peter\Documents\flea-market-app\app\routes\auth.py", line 16, in login
+    if FailedLoginAttempt.is_ip_blocked(request.remote_addr):
+  File "C:\Users\peter\Documents\flea-market-app\app\models.py", line 94, in is_ip_blocked
+    cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+NameError: name 'timedelta' is not defined
+2025-09-06 00:17:02,387 INFO: Flea Market v1.1.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:145]
+2025-09-06 00:17:02,387 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]
+2025-09-06 00:17:02,388 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:147]
+2025-09-06 00:17:16,394 WARNING: Failed login attempt for username: admin from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:58]
+2025-09-06 00:17:31,878 INFO: User admin logged in successfully from 127.0.0.1 [in C:\Users\peter\Documents\flea-market-app\app\routes\auth.py:43]
+2025-09-06 00:17:40,826 INFO: User admin viewed application logs [in C:\Users\peter\Documents\flea-market-app\app\routes\admin.py:280]
+2025-09-06 00:18:40,143 INFO: Flea Market v1.2.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:145]
+2025-09-06 00:18:40,145 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]

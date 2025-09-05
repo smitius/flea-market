@@ -59,7 +59,7 @@
   </table>
 
   <div class="row mt-5">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card">
         <div class="card-header">
           <i class="fas fa-users me-2"></i>Active Sessions
@@ -72,7 +72,7 @@
                 <small>
                   <strong>IP:</strong> {{ session.ip_address or 'Unknown' }}<br>
                   <strong>Last Activity:</strong> {{ session.last_activity.strftime('%Y-%m-%d %H:%M') }}<br>
-                  <strong>Browser:</strong> {{ session.user_agent[:50] }}{% if session.user_agent|length > 50 %}...{% endif %}
+                  <strong>Browser:</strong> {{ session.user_agent[:30] }}{% if session.user_agent|length > 30 %}...{% endif %}
                 </small>
               </div>
             {% endfor %}
@@ -83,7 +83,31 @@
       </div>
     </div>
     
-    <div class="col-md-6">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-shield-alt me-2"></i>Security Alerts
+        </div>
+        <div class="card-body">
+          {% if recent_failed_attempts %}
+            <p class="text-muted mb-3">Recent failed login attempts:</p>
+            {% for attempt in recent_failed_attempts %}
+              <div class="mb-2 p-2 bg-danger bg-opacity-10 rounded">
+                <small>
+                  <strong>IP:</strong> {{ attempt.ip_address }}<br>
+                  <strong>Username:</strong> {{ attempt.username or 'Unknown' }}<br>
+                  <strong>Time:</strong> {{ attempt.attempted_at.strftime('%m-%d %H:%M') }}
+                </small>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-success">No recent failed login attempts.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
       <div class="card">
         <div class="card-header">
           Admin Navigation
@@ -99,9 +123,14 @@
               <i class="fa fa-cog"></i> Site Settings
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mb-2">
             <a class="nav-link p-0" href="{{ url_for('admin.change_password') }}">
               <i class="fa fa-key"></i> Change Password
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0" href="{{ url_for('admin.view_logs') }}">
+              <i class="fa fa-file-alt"></i> View Logs
             </a>
           </li>
         </ul>

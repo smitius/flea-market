@@ -29,6 +29,7 @@ Thumbs.db
 # Development files
 .env
 *.log
+logs/
 
 # Database files (will be created at runtime)
 instance/

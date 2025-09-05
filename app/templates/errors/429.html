@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Too Many Requests{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="display-1 text-warning">429</h1>
+        <h2 class="mb-4">Too Many Requests</h2>
+        <p class="lead">You've made too many requests. Please wait a moment before trying again.</p>
+        <div class="alert alert-warning">
+          <i class="fas fa-clock me-2"></i>
+          Rate limiting is in place to protect against abuse. Please wait and try again.
+        </div>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+          <i class="fas fa-home me-1"></i>Go Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from app import db, login_manager
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 
 @login_manager.user_loader
@@ -80,3 +80,30 @@ class UserSession(db.Model):
         
         db.session.commit()
         return len(expired_sessions)
+
+class FailedLoginAttempt(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip_address = db.Column(db.String(45), nullable=False)
+    username = db.Column(db.String(80))
+    user_agent = db.Column(db.Text)
+    attempted_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    @staticmethod
+    def is_ip_blocked(ip_address, minutes=15, max_attempts=5):
+        """Check if IP should be blocked due to too many failed attempts"""
+        cutoff_time = datetime.utcnow() - timedelta(minutes=minutes)
+        recent_attempts = FailedLoginAttempt.query.filter(
+            FailedLoginAttempt.ip_address == ip_address,
+            FailedLoginAttempt.attempted_at > cutoff_time
+        ).count()
+        return recent_attempts >= max_attempts
+    
+    @staticmethod
+    def cleanup_old_attempts(days=7):
+        """Clean up old failed login attempts"""
+        cutoff_time = datetime.utcnow() - timedelta(days=days)
+        old_attempts = FailedLoginAttempt.query.filter(
+            FailedLoginAttempt.attempted_at < cutoff_time
+        ).delete()
+        db.session.commit()
+        return old_attempts

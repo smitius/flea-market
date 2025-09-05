@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Application Logs{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">
+          <i class="fas fa-file-alt me-2"></i>Application Logs (Last 100 entries)
+        </h4>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary btn-sm">
+          <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="log-container" style="max-height: 600px; overflow-y: auto; font-family: monospace; font-size: 0.9rem;">
+          {% for log_line in logs %}
+            <div class="log-entry mb-1 p-1 
+              {% if 'ERROR' in log_line %}text-danger bg-light
+              {% elif 'WARNING' in log_line %}text-warning bg-light
+              {% elif 'INFO' in log_line %}text-info
+              {% else %}text-muted
+              {% endif %}">
+              {{ log_line.strip() }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <small>
+          <i class="fas fa-info-circle me-1"></i>
+          Logs are automatically rotated when they reach 10MB. 
+          Use <code>docker logs loppis</code> to view real-time container logs.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -26,8 +26,8 @@ RUN useradd -m -u 1000 appuser
 COPY --chown=appuser:appuser . .
 
 # Create necessary directories with proper permissions
-RUN mkdir -p app/static/uploads instance && \
-    chown -R appuser:appuser app/static/uploads instance
+RUN mkdir -p app/static/uploads instance logs && \
+    chown -R appuser:appuser app/static/uploads instance logs
 
 # Switch to non-root user
 USER appuser
