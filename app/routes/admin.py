@@ -54,7 +54,7 @@ def new_item():
                 item_image = ItemImage(item_id=item.id, filename=filename)
                 db.session.add(item_image)
         db.session.commit()
-        flash('Item added successfully')
+        flash('Item added successfully', 'success')
         return redirect(url_for('admin.dashboard'))
 
     return render_template('admin/item_form.html')
@@ -129,7 +129,7 @@ def delete_item(item_id):
     db.session.delete(item)
     db.session.commit()
 
-    flash('Item deleted along with its images')
+    flash('Item deleted along with its images', 'success')
     return redirect(url_for('admin.dashboard'))
 
 
@@ -160,6 +160,13 @@ def upload_file():
 @admin.route('/change-password', methods=['GET', 'POST'])
 @login_required
 def change_password():
+    # Clear any existing flash messages when accessing the change password page
+    # This prevents item-related messages from showing up here
+    if request.method == 'GET':
+        # Get and discard any existing messages to clear them
+        from flask import get_flashed_messages
+        get_flashed_messages()
+    
     if request.method == 'POST':
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
