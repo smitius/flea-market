@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from PIL import Image, ImageOps
 from app import db
-from app.models import Item, ItemImage, SiteSettings
+from app.models import Item, ItemImage, SiteSettings, UserSession
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
@@ -28,7 +28,19 @@ def dashboard():
     else:  # default to created_at
         items = Item.query.order_by(Item.created_at.desc()).all()
     
-    return render_template('admin/dashboard.html', items=items, current_sort=sort_by)
+    # Get active sessions for current user
+    active_sessions = UserSession.query.filter_by(
+        user_id=current_user.id,
+        is_active=True
+    ).order_by(UserSession.last_activity.desc()).all()
+    
+    # Clean up expired sessions
+    UserSession.cleanup_expired_sessions()
+    
+    return render_template('admin/dashboard.html', 
+                         items=items, 
+                         current_sort=sort_by,
+                         active_sessions=active_sessions)
 
 @admin.route('/item/new', methods=['GET', 'POST'])
 @login_required

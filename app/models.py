@@ -52,3 +52,31 @@ class SiteSettings(db.Model):
             db.session.add(settings)
             db.session.commit()
         return settings
+
+class UserSession(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    session_id = db.Column(db.String(255), nullable=False, unique=True)
+    ip_address = db.Column(db.String(45))  # IPv6 compatible
+    user_agent = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_activity = db.Column(db.DateTime, default=datetime.utcnow)
+    is_active = db.Column(db.Boolean, default=True)
+    
+    user = db.relationship('User', backref=db.backref('sessions', lazy=True))
+    
+    @staticmethod
+    def cleanup_expired_sessions():
+        """Remove sessions older than 2 hours (or 7 days for remembered sessions)"""
+        from datetime import timedelta
+        cutoff_time = datetime.utcnow() - timedelta(hours=2)
+        expired_sessions = UserSession.query.filter(
+            UserSession.last_activity < cutoff_time,
+            UserSession.is_active == True
+        ).all()
+        
+        for session in expired_sessions:
+            session.is_active = False
+        
+        db.session.commit()
+        return len(expired_sessions)

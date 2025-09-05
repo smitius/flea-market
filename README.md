@@ -95,6 +95,7 @@ I built an image so you can just run it with:
 
 ```sh
 docker run -d -p 8111:5000 \
+--name loppis \
 -v flea-market-uploads:/app/app/static/uploads \
 -v flea-market-db:/app/instance \
 -e FLASK_ENV=production \
@@ -107,7 +108,25 @@ It will create a container listening on port 8111. There are two persistent volu
 - `flea-market-uploads` - Stores uploaded item images
 - `flea-market-db` - Stores the SQLite database file
 
-**Note:** Site content (name, welcome message, contact info) is now managed through the admin panel at `/admin/site-settings` instead of environment variables. 
+**Note:** Site content (name, welcome message, contact info) is now managed through the admin panel at `/admin/site-settings` instead of environment variables.
+
+### Docker Management Commands
+```sh
+# Stop the container
+docker stop loppis
+
+# Start the container
+docker start loppis
+
+# View logs
+docker logs loppis
+
+# Remove container (keeps volumes)
+docker rm loppis
+
+# Remove container and volumes (⚠️ deletes all data)
+docker rm loppis && docker volume rm flea-market-uploads flea-market-db
+``` 
 
 ---
 

@@ -58,26 +58,54 @@
     </tbody>
   </table>
 
-  <div class="card mt-5" style="max-width: 300px; margin: 0 auto;">
-    <div class="card-header">
-      Admin Navigation
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-users me-2"></i>Active Sessions
+        </div>
+        <div class="card-body">
+          {% if active_sessions %}
+            <p class="text-muted mb-3">You are currently logged in from {{ active_sessions|length }} device(s):</p>
+            {% for session in active_sessions %}
+              <div class="mb-2 p-2 bg-light rounded">
+                <small>
+                  <strong>IP:</strong> {{ session.ip_address or 'Unknown' }}<br>
+                  <strong>Last Activity:</strong> {{ session.last_activity.strftime('%Y-%m-%d %H:%M') }}<br>
+                  <strong>Browser:</strong> {{ session.user_agent[:50] }}{% if session.user_agent|length > 50 %}...{% endif %}
+                </small>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted">No active sessions found.</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
-    <ul class="nav flex-column card-body">
-      <li class="nav-item mb-2">
-        <a class="nav-link p-0" href="{{ url_for('admin.dashboard') }}">
-          <i class="fa fa-tachometer-alt"></i> Dashboard
-        </a>
-      </li>
-      <li class="nav-item mb-2">
-        <a class="nav-link p-0" href="{{ url_for('admin.site_settings') }}">
-          <i class="fa fa-cog"></i> Site Settings
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link p-0" href="{{ url_for('admin.change_password') }}">
-          <i class="fa fa-key"></i> Change Password
-        </a>
-      </li>
-    </ul>
+    
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Admin Navigation
+        </div>
+        <ul class="nav flex-column card-body">
+          <li class="nav-item mb-2">
+            <a class="nav-link p-0" href="{{ url_for('admin.dashboard') }}">
+              <i class="fa fa-tachometer-alt"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link p-0" href="{{ url_for('admin.site_settings') }}">
+              <i class="fa fa-cog"></i> Site Settings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-0" href="{{ url_for('admin.change_password') }}">
+              <i class="fa fa-key"></i> Change Password
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 {% endblock %}

@@ -1,5 +1,55 @@
-flea_market.db
-*.pyc
+# Git files
+.git
+.gitignore
+
+# Python cache
 __pycache__
-venv
-*.env
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Development files
+.env
+*.log
+
+# Database files (will be created at runtime)
+instance/
+*.db
+
+# Documentation
+README.md
+*.md
+
+# Migration scripts (not needed in production)
+migrate_*.py
+
+# Development uploads (will be mounted as volume)
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

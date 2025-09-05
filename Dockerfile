@@ -1,23 +1,38 @@
-FROM python:3.9-slim
+# Multi-stage build for smaller final image
+FROM python:3.10-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libc6-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies to a specific location
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+
+# Final stage - minimal runtime image
+FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Copy Python packages from builder stage
+COPY --from=builder /install /usr/local
 
-COPY requirements.txt .
-COPY init_db.py .
-RUN pip install --no-cache-dir -r requirements.txt
+# Create non-root user
+RUN useradd -m -u 1000 appuser
 
-COPY . .
+# Copy application files (use .dockerignore to exclude unnecessary files)
+COPY --chown=appuser:appuser . .
 
-RUN mkdir -p app/static/uploads
+# Create necessary directories with proper permissions
+RUN mkdir -p app/static/uploads instance && \
+    chown -R appuser:appuser app/static/uploads instance
 
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+# Switch to non-root user
 USER appuser
 
 EXPOSE 5000
 
-# Use the shell script as the container command
-CMD ["./entrypoint.sh"]
+# Use exec form for better signal handling
+CMD ["sh", "./entrypoint.sh"]
