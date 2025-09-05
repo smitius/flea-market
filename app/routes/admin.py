@@ -49,6 +49,10 @@ def new_item():
                 filename = secure_filename(file.filename)
                 filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                 image = Image.open(file)
+                
+                # Automatically rotate to correct orientation using EXIF
+                image = ImageOps.exif_transpose(image)
+                
                 image.thumbnail((800, 600), Image.Resampling.LANCZOS)
                 image.save(filepath, optimize=True, quality=85)
                 item_image = ItemImage(item_id=item.id, filename=filename)
@@ -93,7 +97,14 @@ def edit_item(item_id):
         for file in files:
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(current_app.root_path, 'static/uploads', filename))
+                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                image = Image.open(file)
+                
+                # Automatically rotate to correct orientation using EXIF
+                image = ImageOps.exif_transpose(image)
+                
+                image.thumbnail((800, 600), Image.Resampling.LANCZOS)
+                image.save(filepath, optimize=True, quality=85)
                 new_img = ItemImage(filename=filename, item_id=item.id)
                 db.session.add(new_img)
         db.session.commit()
