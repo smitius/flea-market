@@ -10,6 +10,11 @@ instance/flea_market.db
 # Ignore environment variable files
 .env
 
+# Ignore log files and logs directory
+logs/
+*.log
+flea_market.log*
+
 # Ignore __pycache__ directories
 __pycache__/
 
