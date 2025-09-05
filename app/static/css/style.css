@@ -150,3 +150,39 @@ body {
   color: #20475f;
   font-size: 1rem;
 }
+
+/* Hero Section Styles */
+.hero-section .card {
+  border: none;
+  border-radius: 10px;
+}
+
+.hero-section .card-header {
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.contact-info {
+  white-space: pre-line;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.hero-section .display-4 {
+  font-weight: 300;
+}
+
+.hero-section .lead {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Site Settings Form Styles */
+.form-label i {
+  color: #20475f;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+}

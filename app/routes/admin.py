@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from PIL import Image, ImageOps
 from app import db
-from app.models import Item, ItemImage
+from app.models import Item, ItemImage, SiteSettings
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
@@ -185,3 +185,31 @@ def change_password():
             return redirect(url_for('admin.dashboard'))
 
     return render_template('admin/change_password.html')
+
+@admin.route('/site-settings', methods=['GET', 'POST'])
+@login_required
+def site_settings():
+    settings = SiteSettings.get_settings()
+    
+    if request.method == 'POST':
+        settings.site_name = request.form.get('site_name', '').strip()
+        settings.welcome_message = request.form.get('welcome_message', '').strip()
+        settings.general_info = request.form.get('general_info', '').strip()
+        settings.contact_info = request.form.get('contact_info', '').strip()
+        
+        # Validate required fields
+        if not settings.site_name:
+            flash('Site name is required.', 'danger')
+        elif not settings.welcome_message:
+            flash('Welcome message is required.', 'danger')
+        elif not settings.general_info:
+            flash('General information is required.', 'danger')
+        elif not settings.contact_info:
+            flash('Contact information is required.', 'danger')
+        else:
+            settings.updated_at = db.func.now()
+            db.session.commit()
+            flash('Site settings updated successfully.', 'success')
+            return redirect(url_for('admin.site_settings'))
+    
+    return render_template('admin/site_settings.html', settings=settings)

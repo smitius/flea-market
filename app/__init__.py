@@ -35,11 +35,21 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(admin, url_prefix='/admin')
 
+    @app.template_filter('nl2br')
+    def nl2br_filter(text):
+        """Convert newlines to HTML line breaks"""
+        if not text:
+            return text
+        return text.replace('\n', '<br>')
+    
     @app.context_processor
     def inject_app_info():
+        from app.models import SiteSettings
+        settings = SiteSettings.get_settings()
         return dict(
             app_name=app.config['APP_NAME'],
-            app_version=app.config['APP_VERSION']
+            app_version=app.config['APP_VERSION'],
+            settings=settings
         )
 
     return app

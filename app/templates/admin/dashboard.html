@@ -68,12 +68,16 @@
           <i class="fa fa-tachometer-alt"></i> Dashboard
         </a>
       </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link p-0" href="{{ url_for('admin.site_settings') }}">
+          <i class="fa fa-cog"></i> Site Settings
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link p-0" href="{{ url_for('admin.change_password') }}">
           <i class="fa fa-key"></i> Change Password
         </a>
       </li>
-      <!-- Add other admin links here -->
     </ul>
   </div>
 {% endblock %}

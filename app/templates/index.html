@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
-{% block title %}Loppis{% endblock %}
+{% block title %}{{ settings.site_name }}{% endblock %}
 {% block content %}
   <div class="hero-section text-center mb-5">
-    <h1>Hej och Välkommen</h1>
-    <p>
-      Vi rensar ut några saker vi inte längre behöver – och det kan vara precis vad du letar efter. Från användbara vardagssaker till saker som kan ge lite extra glädje, hoppas vi att du hittar något här som passar dig. Ta en titt och hör gärna av dig om något fångar ditt öga!
-    </p>
-    <p>Om du hittar något du gillar och som inte är markerat som sålt, kontakta oss via:</p>
-    <ul class="list-unstyled">
-      <li><strong>Chat:</strong> {{ whatsapp_number }}</li>
-      <li>
-        <strong>Kontakt:</strong> {{ site_name }}
-      </li>
-      <li><strong>Kom personligen:</strong> {{ apartment_address }}</li>
-    </ul>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <!-- Welcome Message -->
+          <h1 class="display-4 mb-4 text-primary">
+            <i class="fas fa-hand-wave me-2"></i>{{ settings.welcome_message }}
+          </h1>
+          
+          <!-- General Information -->
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <p class="card-text lead">{{ settings.general_info }}</p>
+            </div>
+          </div>
+          
+          <!-- Contact Information -->
+          <div class="card bg-light">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="fas fa-address-book me-2"></i>Kontakt
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="contact-info">
+                {{ settings.contact_info | nl2br | safe }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4" id="itemsGrid">

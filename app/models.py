@@ -33,3 +33,22 @@ class ItemImage(db.Model):
     filename = db.Column(db.String(128), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
     is_primary = db.Column(db.Boolean, default=False)
+
+class SiteSettings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    site_name = db.Column(db.String(100), nullable=False, default='Vår egen Loppis')
+    welcome_message = db.Column(db.String(200), nullable=False, default='Hej och Välkommen')
+    general_info = db.Column(db.Text, nullable=False, default='Vi rensar ut några saker vi inte längre behöver – och det kan vara precis vad du letar efter.')
+    contact_info = db.Column(db.Text, nullable=False, default='Kontakta oss för mer information.')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    @staticmethod
+    def get_settings():
+        """Get the current site settings, create default if none exist"""
+        settings = SiteSettings.query.first()
+        if not settings:
+            settings = SiteSettings()
+            db.session.add(settings)
+            db.session.commit()
+        return settings

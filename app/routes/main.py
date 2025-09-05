@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify
-from app.models import Item
+from app.models import Item, SiteSettings
 from app import db
 from flask import current_app as app
 
@@ -8,12 +8,11 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     items = Item.query.order_by(Item.created_at.desc()).all()
+    settings = SiteSettings.get_settings()
     return render_template(
         'index.html', 
         items=items,
-        site_name=app.config.get('SITE_NAME', 'Personal Flea Market'),
-        whatsapp_number=app.config.get('WHATSAPP_NUMBER', ''),
-        apartment_address=app.config.get('APARTMENT_ADDRESS', '')
+        settings=settings
     )
 
 @main.route('/item/<int:item_id>/view', methods=['POST'])

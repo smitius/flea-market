@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Site Settings{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">
+          <i class="fas fa-cog me-2"></i>Site Settings
+        </h4>
+      </div>
+      <div class="card-body">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'success' if category == 'success' else 'danger' if category == 'danger' else 'warning' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <form method="post">
+          <div class="mb-4">
+            <label for="site_name" class="form-label">
+              <i class="fas fa-store me-1"></i>Site Name
+            </label>
+            <input type="text" class="form-control" id="site_name" name="site_name" 
+                   value="{{ settings.site_name }}" required maxlength="100"
+                   placeholder="e.g., Vår egen Loppis">
+            <div class="form-text">This appears in the navigation bar and page title.</div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="welcome_message" class="form-label">
+              <i class="fas fa-hand-wave me-1"></i>Welcome Message
+            </label>
+            <input type="text" class="form-control" id="welcome_message" name="welcome_message" 
+                   value="{{ settings.welcome_message }}" required maxlength="200"
+                   placeholder="e.g., Hej och Välkommen">
+            <div class="form-text">The main heading displayed to visitors.</div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="general_info" class="form-label">
+              <i class="fas fa-info-circle me-1"></i>General Information
+            </label>
+            <textarea class="form-control" id="general_info" name="general_info" 
+                      rows="4" required placeholder="Describe your flea market...">{{ settings.general_info }}</textarea>
+            <div class="form-text">General description about your flea market and items.</div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="contact_info" class="form-label">
+              <i class="fas fa-address-book me-1"></i>Contact Information
+            </label>
+            <textarea class="form-control" id="contact_info" name="contact_info" 
+                      rows="3" required placeholder="How visitors can contact you...">{{ settings.contact_info }}</textarea>
+            <div class="form-text">How visitors can reach you (phone, address, etc.).</div>
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save me-1"></i>Save Settings
+            </button>
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">
+              <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+            </a>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-muted">
+        <small>
+          <i class="fas fa-clock me-1"></i>
+          Last updated: {{ settings.updated_at.strftime('%Y-%m-%d %H:%M') if settings.updated_at else 'Never' }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
