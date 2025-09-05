@@ -12,3 +12,6 @@ instance/flea_market.db
 
 # Ignore __pycache__ directories
 __pycache__/
+
+#ignore vscode
+.vscode/
