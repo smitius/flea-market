@@ -201,3 +201,4 @@ NameError: name 'timedelta' is not defined
 2025-09-06 00:17:40,826 INFO: User admin viewed application logs [in C:\Users\peter\Documents\flea-market-app\app\routes\admin.py:280]
 2025-09-06 00:18:40,143 INFO: Flea Market v1.2.0 startup [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:145]
 2025-09-06 00:18:40,145 INFO: Environment: development [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:146]
+2025-09-06 00:18:40,145 INFO: Log level: DEBUG [in C:\Users\peter\Documents\flea-market-app\app\__init__.py:147]
