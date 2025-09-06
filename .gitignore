@@ -20,3 +20,6 @@ __pycache__/
 
 #ignore vscode
 .vscode/
+
+#ignore kiro specs
+.kiro/
