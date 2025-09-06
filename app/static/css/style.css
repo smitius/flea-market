@@ -752,6 +752,8 @@ body {
   margin-bottom: 2rem;
   box-shadow: 0 2px 4px var(--shadow);
   transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 100; /* Higher than item cards but lower than dropdown */
 }
 
 .search-box .input-group {
@@ -787,6 +789,11 @@ body {
   box-shadow: 0 2px 4px var(--shadow);
 }
 
+.sort-controls .dropdown {
+  position: relative;
+  z-index: 9999;
+}
+
 .sort-controls .dropdown-menu {
   border-radius: 8px;
   box-shadow: 0 4px 12px var(--shadow-dark);
@@ -794,6 +801,8 @@ body {
   padding: 0.5rem 0;
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
+  z-index: 9999 !important; /* Ensure dropdown appears above item cards */
+  position: absolute !important;
 }
 
 .sort-controls .dropdown-item {
@@ -1422,9 +1431,13 @@ body,
 .navbar,
 .mobile-nav,
 .item-card,
-.card,
-.search-sort-container {
+.card {
   contain: layout style;
+}
+
+/* Don't contain search-sort-container to allow dropdown overflow */
+.search-sort-container {
+  contain: none;
 }
 
 /* Reduce composite layer creation */
@@ -1531,4 +1544,57 @@ body,
   .table .btn-sm + form {
     margin-left: 0.25rem;
   }
+}/* F
+ix dropdown z-index issues */
+.dropdown-menu {
+  z-index: 1050 !important;
+}
+
+.dropdown {
+  position: relative;
+  z-index: 1050;
+}
+
+/* Ensure item cards don't interfere with dropdowns */
+.item-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix any Bootstrap dropdown z-index conflicts */
+.dropdown-menu.show {
+  z-index: 1050 !important;
+}/* Fix d
+ropdown z-index issues - High priority fixes */
+.dropdown-menu {
+  z-index: 9999 !important;
+  position: absolute !important;
+}
+
+.dropdown {
+  position: relative;
+  z-index: 9999;
+}
+
+/* Ensure item cards don't interfere with dropdowns */
+.item-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix any Bootstrap dropdown z-index conflicts */
+.dropdown-menu.show {
+  z-index: 9999 !important;
+}
+
+/* Specifically target sort controls dropdown */
+.sort-controls {
+  position: relative;
+  z-index: 9999;
+}
+
+/* Override any conflicting Bootstrap styles */
+.btn-group > .dropdown-menu,
+.dropdown > .dropdown-menu {
+  z-index: 9999 !important;
 }
