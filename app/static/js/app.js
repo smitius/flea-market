@@ -314,3 +314,68 @@ function initModernGallery() {
 }
 
 
+
+// Search and Sort Enhancement
+document.addEventListener('DOMContentLoaded', function() {
+  initSearchEnhancements();
+});
+
+function initSearchEnhancements() {
+  const searchInput = document.getElementById('searchInput');
+  const searchForm = searchInput?.closest('form');
+  
+  if (!searchInput || !searchForm) return;
+  
+  // Auto-submit search after typing stops
+  let searchTimeout;
+  searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      if (searchInput.value.length >= 2 || searchInput.value.length === 0) {
+        searchForm.submit();
+      }
+    }, 500); // Wait 500ms after user stops typing
+  });
+  
+  // Handle Enter key
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      clearTimeout(searchTimeout);
+      searchForm.submit();
+    }
+  });
+  
+  // Focus search input with Ctrl+F or Cmd+F
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+  
+  // Add loading state during search
+  searchForm.addEventListener('submit', function() {
+    const submitBtn = searchForm.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      submitBtn.disabled = true;
+    }
+  });
+}
+
+// Smooth scroll to results after search
+if (window.location.search.includes('search=')) {
+  document.addEventListener('DOMContentLoaded', function() {
+    const resultsSection = document.getElementById('itemsGrid');
+    if (resultsSection) {
+      setTimeout(() => {
+        resultsSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 100);
+    }
+  });
+}

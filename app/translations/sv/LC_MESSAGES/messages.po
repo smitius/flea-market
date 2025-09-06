@@ -79,3 +79,49 @@ msgstr "Nej"
 
 msgid "Delete this item?"
 msgstr "Ta bort denna vara?"
+
+# Search and Sort
+msgid "Search items..."
+msgstr "Sok varor..."
+
+msgid "Clear search"
+msgstr "Rensa sokning"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Newest first"
+msgstr "Nyaste forst"
+
+msgid "Oldest first"
+msgstr "Aldsta forst"
+
+msgid "Price: Low to High"
+msgstr "Pris: Lag till hog"
+
+msgid "Price: High to Low"
+msgstr "Pris: Hog till lag"
+
+msgid "Name A-Z"
+msgstr "Namn A-O"
+
+msgid "Most Popular"
+msgstr "Mest populara"
+
+msgid "items found for"
+msgstr "varor hittade for"
+
+msgid "No items found"
+msgstr "Inga varor hittades"
+
+msgid "No items match your search for"
+msgstr "Inga varor matchar din sokning efter"
+
+msgid "Show all items"
+msgstr "Visa alla varor"
+
+msgid "No items available"
+msgstr "Inga varor tillgangliga"
+
+msgid "There are currently no items for sale."
+msgstr "Det finns for narvarande inga varor till salu."

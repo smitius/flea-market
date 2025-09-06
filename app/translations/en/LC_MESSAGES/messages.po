@@ -79,3 +79,49 @@ msgstr "No"
 
 msgid "Delete this item?"
 msgstr "Delete this item?"
+
+# Search and Sort
+msgid "Search items..."
+msgstr "Search items..."
+
+msgid "Clear search"
+msgstr "Clear search"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "Newest first"
+msgstr "Newest first"
+
+msgid "Oldest first"
+msgstr "Oldest first"
+
+msgid "Price: Low to High"
+msgstr "Price: Low to High"
+
+msgid "Price: High to Low"
+msgstr "Price: High to Low"
+
+msgid "Name A-Z"
+msgstr "Name A-Z"
+
+msgid "Most Popular"
+msgstr "Most Popular"
+
+msgid "items found for"
+msgstr "items found for"
+
+msgid "No items found"
+msgstr "No items found"
+
+msgid "No items match your search for"
+msgstr "No items match your search for"
+
+msgid "Show all items"
+msgstr "Show all items"
+
+msgid "No items available"
+msgstr "No items available"
+
+msgid "There are currently no items for sale."
+msgstr "There are currently no items for sale."

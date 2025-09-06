@@ -6,12 +6,45 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    items = Item.query.order_by(Item.created_at.desc()).all()
+    # Get search and sort parameters
+    search_query = request.args.get('search', '').strip()
+    sort_by = request.args.get('sort', 'newest')
+    
+    # Start with base query
+    query = Item.query
+    
+    # Apply search filter if provided
+    if search_query:
+        query = query.filter(
+            db.or_(
+                Item.name.ilike(f'%{search_query}%'),
+                Item.description.ilike(f'%{search_query}%')
+            )
+        )
+    
+    # Apply sorting
+    if sort_by == 'oldest':
+        query = query.order_by(Item.created_at.asc())
+    elif sort_by == 'price_low':
+        query = query.order_by(Item.price.asc())
+    elif sort_by == 'price_high':
+        query = query.order_by(Item.price.desc())
+    elif sort_by == 'name':
+        query = query.order_by(Item.name.asc())
+    elif sort_by == 'views':
+        query = query.order_by(Item.view_count.desc())
+    else:  # newest (default)
+        query = query.order_by(Item.created_at.desc())
+    
+    items = query.all()
     settings = SiteSettings.get_settings()
+    
     return render_template(
         'index.html', 
         items=items,
-        settings=settings
+        settings=settings,
+        search_query=search_query,
+        current_sort=sort_by
     )
 
 @main.route('/item/<int:item_id>/view', methods=['POST'])

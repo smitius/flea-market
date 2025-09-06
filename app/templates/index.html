@@ -35,8 +35,88 @@
     </div>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-3 g-4" id="itemsGrid">
-    {% for item in items %}
+  <!-- Search and Sort Controls -->
+  <div class="search-sort-container mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-6">
+        <div class="search-box">
+          <form method="GET" class="d-flex">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-search"></i>
+              </span>
+              <input 
+                type="text" 
+                class="form-control" 
+                name="search" 
+                value="{{ search_query or '' }}"
+                placeholder="{{ _('Search items...') }}"
+                id="searchInput"
+              >
+              {% if search_query %}
+                <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary" title="{{ _('Clear search') }}">
+                  <i class="fas fa-times"></i>
+                </a>
+              {% endif %}
+            </div>
+            <input type="hidden" name="sort" value="{{ current_sort }}">
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="sort-controls d-flex justify-content-md-end">
+          <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="fas fa-sort me-1"></i>
+              {{ _('Sort by') }}: 
+              {% if current_sort == 'oldest' %}{{ _('Oldest first') }}
+              {% elif current_sort == 'price_low' %}{{ _('Price: Low to High') }}
+              {% elif current_sort == 'price_high' %}{{ _('Price: High to Low') }}
+              {% elif current_sort == 'name' %}{{ _('Name A-Z') }}
+              {% elif current_sort == 'views' %}{{ _('Most Popular') }}
+              {% else %}{{ _('Newest first') }}{% endif %}
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='newest') }}">
+                <i class="fas fa-clock me-2"></i>{{ _('Newest first') }}
+              </a></li>
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='oldest') }}">
+                <i class="fas fa-history me-2"></i>{{ _('Oldest first') }}
+              </a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='price_low') }}">
+                <i class="fas fa-arrow-up me-2"></i>{{ _('Price: Low to High') }}
+              </a></li>
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='price_high') }}">
+                <i class="fas fa-arrow-down me-2"></i>{{ _('Price: High to Low') }}
+              </a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='name') }}">
+                <i class="fas fa-sort-alpha-down me-2"></i>{{ _('Name A-Z') }}
+              </a></li>
+              <li><a class="dropdown-item" href="{{ url_for('main.index', search=search_query, sort='views') }}">
+                <i class="fas fa-eye me-2"></i>{{ _('Most Popular') }}
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Results info -->
+    {% if search_query %}
+      <div class="search-results-info mt-2">
+        <small class="text-muted">
+          <i class="fas fa-info-circle me-1"></i>
+          {{ items|length }} {{ _('items found for') }} "<strong>{{ search_query }}</strong>"
+        </small>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if items %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="itemsGrid">
+      {% for item in items %}
       <div class="col">
         <div
           class="card item-card {% if item.is_sold %}sold{% endif %}"
@@ -67,17 +147,46 @@
             />
           {% endif %}
           <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h5 class="card-title mb-0">{{ item.name }}</h5>
+              <small class="text-muted item-date">
+                <i class="fas fa-calendar-alt me-1"></i>
+                {{ item.created_at.strftime('%Y-%m-%d') }}
+              </small>
+            </div>
             <p class="card-text">{{ item.description }}</p>
-            <p class="card-text"><strong>{{ _('Price') }}:</strong> <span class="price-value">{{ item.price | currency }}</span></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="card-text mb-0"><strong>{{ _('Price') }}:</strong> <span class="price-value">{{ item.price | currency }}</span></p>
+              {% if item.view_count > 0 %}
+                <small class="text-muted">
+                  <i class="fas fa-eye me-1"></i>{{ item.view_count }}
+                </small>
+              {% endif %}
+            </div>
             {% if item.is_sold %}
-              <span class="badge bg-danger">{{ _('Sold') }}</span>
+              <span class="badge bg-danger mt-2">{{ _('Sold') }}</span>
             {% endif %}
           </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      {% if search_query %}
+        <i class="fas fa-search"></i>
+        <h3>{{ _('No items found') }}</h3>
+        <p>{{ _('No items match your search for') }} "<strong>{{ search_query }}</strong>"</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+          <i class="fas fa-arrow-left me-1"></i>{{ _('Show all items') }}
+        </a>
+      {% else %}
+        <i class="fas fa-box-open"></i>
+        <h3>{{ _('No items available') }}</h3>
+        <p>{{ _('There are currently no items for sale.') }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
 
   <!-- Modern Image Gallery Modal -->
   <div class="modern-gallery" id="modernGallery">

@@ -582,4 +582,192 @@ dern Image Gallery */
   .item-card:active {
     transform: scale(0.98);
   }
+}/* Sea
+rch and Sort Controls */
+.search-sort-container {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-box .input-group {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.search-box .input-group-text {
+  background-color: #20475f;
+  color: white;
+  border: none;
+}
+
+.search-box .form-control {
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.search-box .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(32, 71, 95, 0.25);
+  border-color: #20475f;
+}
+
+.sort-controls .dropdown-toggle {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sort-controls .dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: none;
+  padding: 0.5rem 0;
+}
+
+.sort-controls .dropdown-item {
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s;
+}
+
+.sort-controls .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #20475f;
+}
+
+.sort-controls .dropdown-item i {
+  width: 20px;
+  color: #6c757d;
+}
+
+.search-results-info {
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(32, 71, 95, 0.1);
+  border-radius: 6px;
+}
+
+/* Item Card Enhancements */
+.item-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.item-date {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.item-date i {
+  color: #6c757d;
+}
+
+.card-title {
+  color: #20475f;
+  font-weight: 600;
+}
+
+.price-value {
+  color: #20475f;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .search-sort-container {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-box {
+    margin-bottom: 1rem;
+  }
+  
+  .sort-controls {
+    justify-content: center !important;
+  }
+  
+  .sort-controls .dropdown-toggle {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .item-date {
+    font-size: 0.75rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  
+  .search-results-info {
+    font-size: 0.9rem;
+  }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #dee2e6;
+}
+
+.empty-state h3 {
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Loading State */
+.loading-spinner {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-spinner.show {
+  display: block;
+}
+
+/* Search Input Enhancements */
+.search-box .btn-outline-secondary {
+  border-left: none;
+  border-color: #ced4da;
+}
+
+.search-box .btn-outline-secondary:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Responsive Grid Improvements */
+@media (min-width: 576px) {
+  .row-cols-sm-2 > * {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .row-cols-lg-4 > * {
+    flex: 0 0 auto;
+    width: 25%;
+  }
 }
