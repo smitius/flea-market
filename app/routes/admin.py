@@ -254,7 +254,7 @@ def site_settings():
             flash('Contact information is required.', 'danger')
         elif settings.language not in ['sv', 'en']:
             flash('Invalid language selection.', 'danger')
-        elif settings.currency not in ['SEK', 'USD']:
+        elif settings.currency not in ['SEK', 'USD', 'EUR', 'GBP', 'NOK', 'DKK']:
             flash('Invalid currency selection.', 'danger')
         else:
             settings.updated_at = db.func.now()

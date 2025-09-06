@@ -27,6 +27,23 @@ msgstr "Logout"
 msgid "Admin"
 msgstr "Admin"
 
+# Language Selector
+msgid "Language"
+msgstr "Language"
+
+msgid "Swedish"
+msgstr "Swedish"
+
+msgid "English"
+msgstr "English"
+
+# Theme Toggle
+msgid "Switch to dark mode"
+msgstr "Switch to dark mode"
+
+msgid "Switch to light mode"
+msgstr "Switch to light mode"
+
 # Main page
 msgid "Contact"
 msgstr "Contact"

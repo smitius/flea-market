@@ -79,6 +79,10 @@
               <select class="form-control" id="currency" name="currency" required>
                 <option value="SEK" {% if settings.currency == 'SEK' %}selected{% endif %}>SEK (Swedish Krona)</option>
                 <option value="USD" {% if settings.currency == 'USD' %}selected{% endif %}>USD (US Dollar)</option>
+                <option value="EUR" {% if settings.currency == 'EUR' %}selected{% endif %}>EUR (Euro)</option>
+                <option value="GBP" {% if settings.currency == 'GBP' %}selected{% endif %}>GBP (British Pound)</option>
+                <option value="NOK" {% if settings.currency == 'NOK' %}selected{% endif %}>NOK (Norwegian Krone)</option>
+                <option value="DKK" {% if settings.currency == 'DKK' %}selected{% endif %}>DKK (Danish Krone)</option>
               </select>
               <div class="form-text">Currency for price display.</div>
             </div>

@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize mobile navigation
   initMobileNavigation();
   
+  // Initialize language selector
+  initLanguageSelector();
+  
   // Initialize modern gallery
   initModernGallery();
 });
@@ -226,6 +229,139 @@ function initThemeSystem() {
   });
 }
 
+// Language Selector
+function initLanguageSelector() {
+  const languageSelector = document.querySelector('.language-selector');
+  const languageToggle = document.getElementById('languageToggle');
+  const languageMenu = document.getElementById('languageMenu');
+  
+  if (!languageSelector || !languageToggle || !languageMenu) return;
+  
+  // Toggle dropdown on click
+  languageToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleLanguageDropdown();
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!languageSelector.contains(e.target)) {
+      closeLanguageDropdown();
+    }
+  });
+  
+  // Handle keyboard navigation
+  languageToggle.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleLanguageDropdown();
+    } else if (e.key === 'Escape') {
+      closeLanguageDropdown();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      openLanguageDropdown();
+      focusFirstOption();
+    }
+  });
+  
+  // Handle option keyboard navigation
+  const languageOptions = languageMenu.querySelectorAll('.language-option');
+  languageOptions.forEach((option, index) => {
+    option.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (index + 1) % languageOptions.length;
+        languageOptions[nextIndex].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (index - 1 + languageOptions.length) % languageOptions.length;
+        languageOptions[prevIndex].focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLanguageDropdown();
+        languageToggle.focus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        option.click();
+      }
+    });
+    
+    // Add tabindex for keyboard navigation
+    option.setAttribute('tabindex', '-1');
+  });
+  
+  function toggleLanguageDropdown() {
+    if (languageSelector.classList.contains('active')) {
+      closeLanguageDropdown();
+    } else {
+      openLanguageDropdown();
+    }
+  }
+  
+  function openLanguageDropdown() {
+    // Close any other open dropdowns first
+    document.querySelectorAll('.language-selector.active').forEach(selector => {
+      if (selector !== languageSelector) {
+        selector.classList.remove('active');
+      }
+    });
+    
+    languageSelector.classList.add('active');
+    languageToggle.setAttribute('aria-expanded', 'true');
+    
+    // Focus first option for keyboard users
+    setTimeout(() => {
+      const firstOption = languageMenu.querySelector('.language-option');
+      if (firstOption && document.activeElement === languageToggle) {
+        // Only auto-focus if user was using keyboard
+        if (document.querySelector(':focus-visible')) {
+          firstOption.focus();
+        }
+      }
+    }, 100);
+  }
+  
+  function closeLanguageDropdown() {
+    languageSelector.classList.remove('active');
+    languageToggle.setAttribute('aria-expanded', 'false');
+  }
+  
+  function focusFirstOption() {
+    const firstOption = languageMenu.querySelector('.language-option');
+    if (firstOption) {
+      firstOption.focus();
+    }
+  }
+  
+  // Initialize ARIA attributes
+  languageToggle.setAttribute('aria-haspopup', 'true');
+  languageToggle.setAttribute('aria-expanded', 'false');
+  languageMenu.setAttribute('role', 'menu');
+  
+  languageOptions.forEach(option => {
+    option.setAttribute('role', 'menuitem');
+  });
+  
+  // Handle mobile language options (they don't need dropdown behavior)
+  const mobileLanguageOptions = document.querySelectorAll('.mobile-language-option');
+  mobileLanguageOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // Close mobile menu when language is selected
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      
+      if (mobileMenu && mobileMenuToggle && mobileMenuOverlay) {
+        mobileMenuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+}
+
 // Mobile Navigation
 function initMobileNavigation() {
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -264,6 +400,11 @@ function initMobileNavigation() {
   // Close menu when clicking on nav links
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', closeMobileMenu);
+  });
+  
+  // Close menu when clicking on language options
+  document.querySelectorAll('.mobile-language-option').forEach(option => {
+    option.addEventListener('click', closeMobileMenu);
   });
 }
 

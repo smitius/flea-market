@@ -15,6 +15,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     rel="stylesheet"
   />
+
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
   {% block head %}{% endblock %}
 </head>
@@ -26,6 +27,22 @@
         <i class="fas fa-store me-2"></i>{{ settings.site_name if settings else 'Vår egen Loppis' }}
       </a>
       <div class="navbar-nav ms-auto">
+        <!-- Language Selector -->
+        <div class="language-selector">
+          <button class="nav-link language-toggle" id="languageToggle" data-current-lang="{{ get_locale() }}">
+            <span>{{ get_locale().upper() }}</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="language-menu" id="languageMenu">
+            <a href="{{ url_for('main.set_language', language='sv') }}" class="language-option" data-lang="sv">
+              <span>{{ _('Swedish') }}</span>
+            </a>
+            <a href="{{ url_for('main.set_language', language='en') }}" class="language-option" data-lang="en">
+              <span>{{ _('English') }}</span>
+            </a>
+          </div>
+        </div>
+        
         <!-- Theme Toggle Button -->
         <button class="nav-link theme-toggle" id="themeToggle" title="{{ _('Switch to dark mode') }}">
           <i class="fas fa-moon"></i>
@@ -69,6 +86,21 @@
     <!-- Mobile Slide-out Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-menu-content">
+        <!-- Mobile Language Selector -->
+        <div class="mobile-language-section">
+          <div class="mobile-language-header">
+            <i class="fas fa-globe me-2"></i>{{ _('Language') }}
+          </div>
+          <a href="{{ url_for('main.set_language', language='sv') }}" class="mobile-language-option {{ 'active' if get_locale() == 'sv' else '' }}" data-lang="sv">
+            <span>{{ _('Swedish') }}</span>
+            {% if get_locale() == 'sv' %}<i class="fas fa-check ms-auto"></i>{% endif %}
+          </a>
+          <a href="{{ url_for('main.set_language', language='en') }}" class="mobile-language-option {{ 'active' if get_locale() == 'en' else '' }}" data-lang="en">
+            <span>{{ _('English') }}</span>
+            {% if get_locale() == 'en' %}<i class="fas fa-check ms-auto"></i>{% endif %}
+          </a>
+        </div>
+        
         {% if current_user.is_authenticated %}
           <a class="mobile-nav-link" href="{{ url_for('admin.dashboard') }}">
             <i class="fas fa-tachometer-alt me-2"></i>{{ _('Dashboard') }}

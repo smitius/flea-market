@@ -68,11 +68,37 @@ def create_app():
     app.register_blueprint(admin, url_prefix='/admin')
 
     def get_locale():
+        """Enhanced locale selector with proper fallback chain"""
         try:
+            from flask import session, request
             from app.models import SiteSettings
+            
+            # Get supported languages from app config
+            supported_languages = app.config.get('LANGUAGES', {}).keys()
+            
+            # 1. Check for user preference in session first (Requirement 1.4)
+            if 'user_language' in session:
+                user_lang = session['user_language']
+                if user_lang in supported_languages:
+                    return user_lang
+            
+            # 2. Check browser Accept-Language header for first-time visitors
+            if request and hasattr(request, 'accept_languages'):
+                browser_lang = request.accept_languages.best_match(supported_languages)
+                if browser_lang:
+                    return browser_lang
+            
+            # 3. Fall back to admin-configured default language (Requirement 1.6)
             settings = SiteSettings.get_settings()
-            return settings.language if settings else 'sv'
-        except:
+            if settings and settings.language in supported_languages:
+                return settings.language
+            
+            # 4. Final fallback to Swedish
+            return 'sv'
+            
+        except Exception as e:
+            # Log error but don't break the application
+            app.logger.error(f'Error in get_locale(): {str(e)}')
             return 'sv'
     
     # Configure Babel with proper encoding
@@ -94,23 +120,36 @@ def create_app():
     
     @app.template_filter('currency')
     def currency_filter(amount, currency=None):
-        """Format currency based on site settings"""
+        """Format currency based on site settings only"""
         from app.models import SiteSettings
+        
         if currency is None:
+            # Always use site settings for currency
             settings = SiteSettings.get_settings()
             currency = settings.currency if settings else 'SEK'
         
-        if currency == 'SEK':
-            return f"{amount:.2f} Kr"
-        elif currency == 'USD':
-            return f"${amount:.2f}"
-        else:
-            return f"{amount:.2f} {currency}"
+        # Format currency based on type
+        currency_formats = {
+            'SEK': f"{amount:.2f} Kr",
+            'USD': f"${amount:.2f}",
+            'EUR': f"€{amount:.2f}",
+            'GBP': f"£{amount:.2f}",
+            'NOK': f"{amount:.2f} kr",
+            'DKK': f"{amount:.2f} kr"
+        }
+        
+        return currency_formats.get(currency, f"{amount:.2f} {currency}")
     
     @app.context_processor
     def inject_app_info():
         from app.models import SiteSettings
+        from flask import session
+        
         settings = SiteSettings.get_settings()
+        
+        # Get site currency (no user preference for currency)
+        def get_site_currency():
+            return settings.currency if settings else 'SEK'
         
         # Safe translation function with fallback
         def safe_gettext(text):
@@ -120,14 +159,17 @@ def create_app():
             except:
                 # Fallback to our simple translation system
                 from app.translations_fallback import get_translation
-                language = settings.language if settings else 'sv'
-                return get_translation(text, language)
+                current_language = get_locale()
+                return get_translation(text, current_language)
         
         return dict(
             app_name=app.config['APP_NAME'],
             app_version=app.config['APP_VERSION'],
             settings=settings,
-            _=safe_gettext  # Make safe translation function available in templates
+            _=safe_gettext,  # Make safe translation function available in templates
+            get_locale=get_locale,  # Make locale function available in templates
+            get_site_currency=get_site_currency,  # Make site currency function available in templates
+            supported_languages=app.config.get('LANGUAGES', {})  # Make supported languages available
         )
 
     # Configure logging
