@@ -40,6 +40,8 @@ class SiteSettings(db.Model):
     welcome_message = db.Column(db.String(200), nullable=False, default='Hej och Välkommen')
     general_info = db.Column(db.Text, nullable=False, default='Vi rensar ut några saker vi inte längre behöver – och det kan vara precis vad du letar efter.')
     contact_info = db.Column(db.Text, nullable=False, default='Kontakta oss för mer information.')
+    language = db.Column(db.String(5), nullable=False, default='sv')  # 'sv' or 'en'
+    currency = db.Column(db.String(3), nullable=False, default='SEK')  # 'SEK' or 'USD'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     

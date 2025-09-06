@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_babel import Babel
 from dotenv import load_dotenv
 import os
 import logging
@@ -17,6 +18,7 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
+babel = Babel()
 
 def create_app():
     load_dotenv()  
@@ -65,6 +67,24 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(admin, url_prefix='/admin')
 
+    def get_locale():
+        try:
+            from app.models import SiteSettings
+            settings = SiteSettings.get_settings()
+            return settings.language if settings else 'sv'
+        except:
+            return 'sv'
+    
+    # Configure Babel with proper encoding
+    app.config['LANGUAGES'] = {
+        'sv': 'Svenska',
+        'en': 'English'
+    }
+    app.config['BABEL_DEFAULT_LOCALE'] = 'sv'
+    app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
+    
+    babel.init_app(app, locale_selector=get_locale)
+    
     @app.template_filter('nl2br')
     def nl2br_filter(text):
         """Convert newlines to HTML line breaks"""
@@ -72,14 +92,42 @@ def create_app():
             return text
         return text.replace('\n', '<br>')
     
+    @app.template_filter('currency')
+    def currency_filter(amount, currency=None):
+        """Format currency based on site settings"""
+        from app.models import SiteSettings
+        if currency is None:
+            settings = SiteSettings.get_settings()
+            currency = settings.currency if settings else 'SEK'
+        
+        if currency == 'SEK':
+            return f"{amount:.2f} Kr"
+        elif currency == 'USD':
+            return f"${amount:.2f}"
+        else:
+            return f"{amount:.2f} {currency}"
+    
     @app.context_processor
     def inject_app_info():
         from app.models import SiteSettings
         settings = SiteSettings.get_settings()
+        
+        # Safe translation function with fallback
+        def safe_gettext(text):
+            try:
+                from flask_babel import gettext
+                return gettext(text)
+            except:
+                # Fallback to our simple translation system
+                from app.translations_fallback import get_translation
+                language = settings.language if settings else 'sv'
+                return get_translation(text, language)
+        
         return dict(
             app_name=app.config['APP_NAME'],
             app_version=app.config['APP_VERSION'],
-            settings=settings
+            settings=settings,
+            _=safe_gettext  # Make safe translation function available in templates
         )
 
     # Configure logging

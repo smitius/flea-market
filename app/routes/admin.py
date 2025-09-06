@@ -240,6 +240,8 @@ def site_settings():
         settings.welcome_message = request.form.get('welcome_message', '').strip()
         settings.general_info = request.form.get('general_info', '').strip()
         settings.contact_info = request.form.get('contact_info', '').strip()
+        settings.language = request.form.get('language', 'sv').strip()
+        settings.currency = request.form.get('currency', 'SEK').strip()
         
         # Validate required fields
         if not settings.site_name:
@@ -250,12 +252,16 @@ def site_settings():
             flash('General information is required.', 'danger')
         elif not settings.contact_info:
             flash('Contact information is required.', 'danger')
+        elif settings.language not in ['sv', 'en']:
+            flash('Invalid language selection.', 'danger')
+        elif settings.currency not in ['SEK', 'USD']:
+            flash('Invalid currency selection.', 'danger')
         else:
             settings.updated_at = db.func.now()
             db.session.commit()
             
             # Log settings update
-            current_app.logger.info(f'User {current_user.username} updated site settings')
+            current_app.logger.info(f'User {current_user.username} updated site settings (language: {settings.language}, currency: {settings.currency})')
             
             flash('Site settings updated successfully.', 'success')
             return redirect(url_for('admin.site_settings'))

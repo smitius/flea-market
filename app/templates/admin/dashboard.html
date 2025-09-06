@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}{{ _('Admin Dashboard') }}{% endblock %}
 {% block content %}
-  <h2 class="mb-4">Admin Dashboard</h2>
+  <h2 class="mb-4">{{ _('Admin Dashboard') }}</h2>
   
   <!-- Flash Messages -->
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -15,42 +15,42 @@
     {% endif %}
   {% endwith %}
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="{{ url_for('admin.new_item') }}" class="btn btn-success">Add New Item</a>
+    <a href="{{ url_for('admin.new_item') }}" class="btn btn-success">{{ _('Add New Item') }}</a>
     <div class="dropdown">
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Sort by: {% if current_sort == 'views' %}Views{% elif current_sort == 'name' %}Name{% elif current_sort == 'price' %}Price{% else %}Date Created{% endif %}
+        {{ _('Sort by') }}: {% if current_sort == 'views' %}{{ _('Views') }}{% elif current_sort == 'name' %}{{ _('Name') }}{% elif current_sort == 'price' %}{{ _('Price') }}{% else %}{{ _('Date Created') }}{% endif %}
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='created_at') }}">Date Created</a></li>
-        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='views') }}">Most Viewed</a></li>
-        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='name') }}">Name</a></li>
-        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='price') }}">Price</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='created_at') }}">{{ _('Date Created') }}</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='views') }}">{{ _('Most Viewed') }}</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='name') }}">{{ _('Name') }}</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard', sort='price') }}">{{ _('Price') }}</a></li>
       </ul>
     </div>
   </div>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Views</th>
-        <th>Sold</th>
-        <th>Actions</th>
+        <th>{{ _('Name') }}</th>
+        <th>{{ _('Price') }}</th>
+        <th>{{ _('Views') }}</th>
+        <th>{{ _('Sold') }}</th>
+        <th>{{ _('Actions') }}</th>
       </tr>
     </thead>
     <tbody>
       {% for item in items %}
         <tr>
           <td>{{ item.name }}</td>
-          <td>${{ '%.2f' | format(item.price) }}</td>
+          <td>{{ item.price | currency }}</td>
           <td>
             <span class="badge bg-info">{{ item.view_count or 0 }}</span>
           </td>
-          <td>{{ 'Yes' if item.is_sold else 'No' }}</td>
+          <td>{{ _('Yes') if item.is_sold else _('No') }}</td>
           <td>
-            <a href="{{ url_for('admin.edit_item', item_id=item.id) }}" class="btn btn-primary btn-sm">Edit</a>
+            <a href="{{ url_for('admin.edit_item', item_id=item.id) }}" class="btn btn-primary btn-sm">{{ _('Edit') }}</a>
             <form action="{{ url_for('admin.delete_item', item_id=item.id) }}" method="POST" style="display:inline;">
-              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this item?');">Delete</button>
+              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ _('Delete this item?') }}');">{{ _('Delete') }}</button>
             </form>
           </td>
         </tr>

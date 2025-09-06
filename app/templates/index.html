@@ -21,7 +21,7 @@
           <div class="card bg-light">
             <div class="card-header bg-primary text-white">
               <h5 class="mb-0">
-                <i class="fas fa-address-book me-2"></i>Kontakt
+                <i class="fas fa-address-book me-2"></i>{{ _('Contact') }}
               </h5>
             </div>
             <div class="card-body">
@@ -69,9 +69,9 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">{{ item.description }}</p>
-            <p class="card-text"><strong>Pris:</strong> <span class="price-value">{{ '%.2f' | format(item.price) }} Kr</span></p>
+            <p class="card-text"><strong>{{ _('Price') }}:</strong> <span class="price-value">{{ item.price | currency }}</span></p>
             {% if item.is_sold %}
-              <span class="badge bg-danger">Såld</span>
+              <span class="badge bg-danger">{{ _('Sold') }}</span>
             {% endif %}
           </div>
         </div>
@@ -79,36 +79,48 @@
     {% endfor %}
   </div>
 
-  <!-- Image Gallery Modal -->
-  <div
-    class="modal fade"
-    id="imageGalleryModal"
-    tabindex="-1"
-    aria-labelledby="imageGalleryLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imageGalleryLabel">Fler Bilder</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+  <!-- Modern Image Gallery Modal -->
+  <div class="modern-gallery" id="modernGallery">
+    <div class="gallery-overlay" id="galleryOverlay"></div>
+    <div class="gallery-container">
+      <!-- Gallery Header -->
+      <div class="gallery-header">
+        <div class="gallery-title" id="galleryTitle">{{ _('More Pictures') }}</div>
+        <button class="gallery-close" id="galleryClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <!-- Gallery Content -->
+      <div class="gallery-content">
+        <div class="gallery-main">
+          <div class="gallery-image-container" id="galleryImageContainer">
+            <img id="galleryImage" src="" alt="Item image" class="gallery-image" />
+            <div class="gallery-loading" id="galleryLoading">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </div>
+          
+          <!-- Navigation Arrows -->
+          <button class="gallery-nav gallery-prev" id="galleryPrev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="gallery-nav gallery-next" id="galleryNext">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
-        <div class="modal-body text-center">
-          <img
-            id="galleryImage"
-            src=""
-            alt="Item image"
-            class="img-fluid rounded"
-          />
+        
+        <!-- Thumbnail Strip -->
+        <div class="gallery-thumbnails" id="galleryThumbnails">
+          <!-- Thumbnails will be populated by JavaScript -->
         </div>
-        <div class="modal-footer justify-content-center">
-          <button id="prevImage" class="btn btn-secondary">&#x25C0;</button> <!-- ◀ -->
-          <button id="nextImage" class="btn btn-secondary">&#x25B6;</button> <!-- ▶ -->
+        
+        <!-- Gallery Info -->
+        <div class="gallery-info">
+          <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+          <button class="gallery-fullscreen" id="galleryFullscreen">
+            <i class="fas fa-expand"></i>
+          </button>
         </div>
       </div>
     </div>

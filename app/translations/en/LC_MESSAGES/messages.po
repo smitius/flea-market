@@ -1,0 +1,81 @@
+# English translations for Flea Market App
+# Copyright (C) 2025
+# This file is distributed under the same license as the Flea Market App project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Flea Market App 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-06 08:30+0000\n"
+"PO-Revision-Date: 2025-01-06 08:30+0000\n"
+"Last-Translator: \n"
+"Language: en\n"
+"Language-Team: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+# Navigation
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Admin"
+msgstr "Admin"
+
+# Main page
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "Sold"
+msgstr "Sold"
+
+msgid "More Pictures"
+msgstr "More Pictures"
+
+# Admin Dashboard
+msgid "Admin Dashboard"
+msgstr "Admin Dashboard"
+
+msgid "Add New Item"
+msgstr "Add New Item"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "Date Created"
+msgstr "Date Created"
+
+msgid "Most Viewed"
+msgstr "Most Viewed"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Views"
+msgstr "Views"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Delete this item?"
+msgstr "Delete this item?"

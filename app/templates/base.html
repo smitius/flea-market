@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ settings.language if settings else 'sv' }}">
 <head>
   <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" />
 
@@ -19,7 +19,8 @@
   {% block head %}{% endblock %}
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top">
+  <!-- Desktop Navigation -->
+  <nav class="navbar navbar-expand-md fixed-top d-md-block d-none">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('main.index') }}">
         <i class="fas fa-store me-2"></i>{{ settings.site_name if settings else 'Vår egen Loppis' }}
@@ -27,18 +28,53 @@
       <div class="navbar-nav ms-auto">
         {% if current_user.is_authenticated %}
           <a class="nav-link" href="{{ url_for('admin.dashboard') }}"
-            ><i class="fas fa-tachometer-alt me-1"></i>Dashboard</a
+            ><i class="fas fa-tachometer-alt me-1"></i>{{ _('Dashboard') }}</a
           >
           <a class="nav-link" href="{{ url_for('auth.logout') }}"
-            ><i class="fas fa-sign-out-alt me-1"></i>Logout</a
+            ><i class="fas fa-sign-out-alt me-1"></i>{{ _('Logout') }}</a
           >
         {% else %}
           <a class="nav-link" href="{{ url_for('auth.login') }}"
-            ><i class="fas fa-user-shield me-1"></i>Admin</a
+            ><i class="fas fa-user-shield me-1"></i>{{ _('Admin') }}</a
           >
         {% endif %}
       </div>
     </div>
+  </nav>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav d-md-none">
+    <div class="mobile-nav-header">
+      <a class="mobile-brand" href="{{ url_for('main.index') }}">
+        <i class="fas fa-store me-2"></i>{{ settings.site_name if settings else 'Vår egen Loppis' }}
+      </a>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    
+    <!-- Mobile Slide-out Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-content">
+        {% if current_user.is_authenticated %}
+          <a class="mobile-nav-link" href="{{ url_for('admin.dashboard') }}">
+            <i class="fas fa-tachometer-alt me-2"></i>{{ _('Dashboard') }}
+          </a>
+          <a class="mobile-nav-link" href="{{ url_for('auth.logout') }}">
+            <i class="fas fa-sign-out-alt me-2"></i>{{ _('Logout') }}
+          </a>
+        {% else %}
+          <a class="mobile-nav-link" href="{{ url_for('auth.login') }}">
+            <i class="fas fa-user-shield me-2"></i>{{ _('Admin') }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
   </nav>
 
   <main class="main-content mt-4">
