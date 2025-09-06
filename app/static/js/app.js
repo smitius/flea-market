@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
   initModernGallery();
 });
 
-// Theme System
+// Theme System - Performance Optimized
 function initThemeSystem() {
   const htmlElement = document.documentElement;
+  let isThemeSwitching = false;
+  let themeToggleTimeout = null;
   
   // Remove preload class to enable transitions after page load
   setTimeout(() => {
@@ -33,55 +35,103 @@ function initThemeSystem() {
     return 'light';
   }
   
-  // Apply theme to document with error handling
-  function applyTheme(theme) {
+  // Apply theme to document with error handling and performance optimization
+  function applyTheme(theme, skipTransition = false) {
     try {
-      htmlElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme-preference', theme);
+      // Performance optimization: Batch DOM updates
+      if (skipTransition) {
+        document.body.classList.add('theme-switching');
+      }
       
-      // Dispatch custom event for theme change
-      window.dispatchEvent(new CustomEvent('themeChanged', { 
-        detail: { theme: theme } 
-      }));
+      // Use requestAnimationFrame for smooth DOM updates
+      requestAnimationFrame(() => {
+        htmlElement.setAttribute('data-theme', theme);
+        
+        // Remove theme-switching class after transition
+        if (skipTransition) {
+          setTimeout(() => {
+            document.body.classList.remove('theme-switching');
+          }, 50);
+        }
+      });
+      
+      // Store preference asynchronously to avoid blocking
+      setTimeout(() => {
+        try {
+          localStorage.setItem('theme-preference', theme);
+        } catch (storageError) {
+          console.warn('Failed to save theme preference:', storageError);
+        }
+      }, 0);
+      
+      // Dispatch custom event for theme change (debounced)
+      clearTimeout(themeToggleTimeout);
+      themeToggleTimeout = setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('themeChanged', { 
+          detail: { theme: theme } 
+        }));
+      }, 100);
+      
     } catch (error) {
-      console.warn('Failed to save theme preference:', error);
-      // Still apply the theme even if localStorage fails
+      console.warn('Failed to apply theme:', error);
+      // Fallback: still apply the theme even if other operations fail
       htmlElement.setAttribute('data-theme', theme);
     }
   }
   
   // Initialize theme on page load
   const initialTheme = getInitialTheme();
-  applyTheme(initialTheme);
+  applyTheme(initialTheme, true);
   
-  // Listen for system theme changes
+  // Listen for system theme changes (debounced)
   if (window.matchMedia) {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    let systemThemeTimeout = null;
+    
     mediaQuery.addEventListener('change', (e) => {
-      // Only auto-switch if user hasn't manually set a preference
-      const hasManualPreference = localStorage.getItem('theme-preference');
-      if (!hasManualPreference) {
-        const systemTheme = e.matches ? 'dark' : 'light';
-        applyTheme(systemTheme);
-        updateThemeToggleButton(systemTheme);
-      }
+      // Debounce system theme changes
+      clearTimeout(systemThemeTimeout);
+      systemThemeTimeout = setTimeout(() => {
+        // Only auto-switch if user hasn't manually set a preference
+        const hasManualPreference = localStorage.getItem('theme-preference');
+        if (!hasManualPreference) {
+          const systemTheme = e.matches ? 'dark' : 'light';
+          applyTheme(systemTheme);
+          updateThemeToggleButton(systemTheme);
+        }
+      }, 150);
     });
   }
   
-  // Expose theme switching function globally for theme toggle button
+  // Debounced theme toggle function to prevent rapid switching
+  let toggleDebounceTimeout = null;
   window.toggleTheme = function() {
-    const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
+    // Prevent rapid theme switching
+    if (isThemeSwitching) {
+      return;
+    }
     
-    // Update theme toggle button if it exists
-    updateThemeToggleButton(newTheme);
+    // Clear any pending toggle
+    clearTimeout(toggleDebounceTimeout);
     
-    // Add smooth transition effect
-    htmlElement.style.transition = 'none';
-    setTimeout(() => {
-      htmlElement.style.transition = '';
-    }, 50);
+    toggleDebounceTimeout = setTimeout(() => {
+      isThemeSwitching = true;
+      
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      // Apply theme with optimized transition
+      applyTheme(newTheme);
+      
+      // Update theme toggle button if it exists
+      updateThemeToggleButton(newTheme);
+      
+      // Reset switching flag after transition completes
+      setTimeout(() => {
+        isThemeSwitching = false;
+      }, 250);
+      
+    }, 50); // 50ms debounce delay
   };
   
   // Get current theme function
@@ -89,37 +139,74 @@ function initThemeSystem() {
     return htmlElement.getAttribute('data-theme') || 'light';
   };
   
-  // Update theme toggle button appearance with smooth transitions
+  // Update theme toggle button appearance with optimized transitions
   function updateThemeToggleButton(theme) {
-    const themeToggle = document.getElementById('themeToggle');
-    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    const buttons = [
+      document.getElementById('themeToggle'),
+      document.getElementById('mobileThemeToggle')
+    ].filter(Boolean); // Filter out null elements
     
-    [themeToggle, mobileThemeToggle].forEach(button => {
-      if (button) {
+    // Batch DOM updates for better performance
+    requestAnimationFrame(() => {
+      buttons.forEach(button => {
         const icon = button.querySelector('i');
-        if (icon) {
-          // Add rotation animation during icon change
-          icon.style.transform = 'rotate(180deg)';
+        if (!icon) return;
+        
+        // Use CSS transforms for hardware acceleration
+        icon.style.transform = 'rotate3d(0, 0, 1, 180deg)';
+        
+        // Batch attribute updates
+        const updates = theme === 'dark' ? {
+          className: 'fas fa-sun',
+          title: 'Switch to light mode',
+          ariaLabel: 'Switch to light mode'
+        } : {
+          className: 'fas fa-moon',
+          title: 'Switch to dark mode',
+          ariaLabel: 'Switch to dark mode'
+        };
+        
+        // Use a single timeout for all updates
+        setTimeout(() => {
+          // Batch DOM writes
+          icon.className = updates.className;
+          button.title = updates.title;
+          button.setAttribute('aria-label', updates.ariaLabel);
           
-          setTimeout(() => {
-            if (theme === 'dark') {
-              icon.className = 'fas fa-sun';
-              button.title = 'Switch to light mode';
-              button.setAttribute('aria-label', 'Switch to light mode');
-            } else {
-              icon.className = 'fas fa-moon';
-              button.title = 'Switch to dark mode';
-              button.setAttribute('aria-label', 'Switch to dark mode');
-            }
-            
-            // Reset rotation
-            setTimeout(() => {
-              icon.style.transform = '';
-            }, 150);
-          }, 150);
-        }
-      }
+          // Reset rotation with hardware acceleration
+          requestAnimationFrame(() => {
+            icon.style.transform = 'translate3d(0, 0, 0)';
+          });
+        }, 150);
+      });
     });
+  }
+  
+  // Performance monitoring for theme switching (development only)
+  function measureThemePerformance(callback) {
+    if (typeof performance !== 'undefined' && performance.mark) {
+      const startMark = 'theme-switch-start';
+      const endMark = 'theme-switch-end';
+      
+      performance.mark(startMark);
+      
+      callback();
+      
+      requestAnimationFrame(() => {
+        performance.mark(endMark);
+        try {
+          performance.measure('theme-switch-duration', startMark, endMark);
+          const measure = performance.getEntriesByName('theme-switch-duration')[0];
+          if (measure && measure.duration > 100) {
+            console.warn(`Theme switch took ${measure.duration.toFixed(2)}ms - consider optimization`);
+          }
+        } catch (e) {
+          // Ignore measurement errors
+        }
+      });
+    } else {
+      callback();
+    }
   }
   
   // Initialize theme toggle buttons if they exist
@@ -129,7 +216,12 @@ function initThemeSystem() {
   [themeToggle, mobileThemeToggle].forEach(button => {
     if (button) {
       updateThemeToggleButton(initialTheme);
-      button.addEventListener('click', window.toggleTheme);
+      
+      // Add optimized event listener with performance monitoring
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        measureThemePerformance(window.toggleTheme);
+      }, { passive: false });
     }
   });
 }
