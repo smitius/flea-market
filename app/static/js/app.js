@@ -1,10 +1,138 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Initialize theme system
+  initThemeSystem();
+  
   // Initialize mobile navigation
   initMobileNavigation();
   
   // Initialize modern gallery
   initModernGallery();
 });
+
+// Theme System
+function initThemeSystem() {
+  const htmlElement = document.documentElement;
+  
+  // Remove preload class to enable transitions after page load
+  setTimeout(() => {
+    document.body.classList.remove('preload');
+  }, 100);
+  
+  // Get stored theme preference or detect system preference
+  function getInitialTheme() {
+    const storedTheme = localStorage.getItem('theme-preference');
+    if (storedTheme && (storedTheme === 'light' || storedTheme === 'dark')) {
+      return storedTheme;
+    }
+    
+    // Check system preference on first visit
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    
+    return 'light';
+  }
+  
+  // Apply theme to document with error handling
+  function applyTheme(theme) {
+    try {
+      htmlElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme-preference', theme);
+      
+      // Dispatch custom event for theme change
+      window.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme: theme } 
+      }));
+    } catch (error) {
+      console.warn('Failed to save theme preference:', error);
+      // Still apply the theme even if localStorage fails
+      htmlElement.setAttribute('data-theme', theme);
+    }
+  }
+  
+  // Initialize theme on page load
+  const initialTheme = getInitialTheme();
+  applyTheme(initialTheme);
+  
+  // Listen for system theme changes
+  if (window.matchMedia) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a preference
+      const hasManualPreference = localStorage.getItem('theme-preference');
+      if (!hasManualPreference) {
+        const systemTheme = e.matches ? 'dark' : 'light';
+        applyTheme(systemTheme);
+        updateThemeToggleButton(systemTheme);
+      }
+    });
+  }
+  
+  // Expose theme switching function globally for theme toggle button
+  window.toggleTheme = function() {
+    const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    
+    // Update theme toggle button if it exists
+    updateThemeToggleButton(newTheme);
+    
+    // Add smooth transition effect
+    htmlElement.style.transition = 'none';
+    setTimeout(() => {
+      htmlElement.style.transition = '';
+    }, 50);
+  };
+  
+  // Get current theme function
+  window.getCurrentTheme = function() {
+    return htmlElement.getAttribute('data-theme') || 'light';
+  };
+  
+  // Update theme toggle button appearance with smooth transitions
+  function updateThemeToggleButton(theme) {
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    
+    [themeToggle, mobileThemeToggle].forEach(button => {
+      if (button) {
+        const icon = button.querySelector('i');
+        if (icon) {
+          // Add rotation animation during icon change
+          icon.style.transform = 'rotate(180deg)';
+          
+          setTimeout(() => {
+            if (theme === 'dark') {
+              icon.className = 'fas fa-sun';
+              button.title = 'Switch to light mode';
+              button.setAttribute('aria-label', 'Switch to light mode');
+            } else {
+              icon.className = 'fas fa-moon';
+              button.title = 'Switch to dark mode';
+              button.setAttribute('aria-label', 'Switch to dark mode');
+            }
+            
+            // Reset rotation
+            setTimeout(() => {
+              icon.style.transform = '';
+            }, 150);
+          }, 150);
+        }
+      }
+    });
+  }
+  
+  // Initialize theme toggle buttons if they exist
+  const themeToggle = document.getElementById('themeToggle');
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  
+  [themeToggle, mobileThemeToggle].forEach(button => {
+    if (button) {
+      updateThemeToggleButton(initialTheme);
+      button.addEventListener('click', window.toggleTheme);
+    }
+  });
+}
 
 // Mobile Navigation
 function initMobileNavigation() {
