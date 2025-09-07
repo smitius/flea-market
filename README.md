@@ -6,19 +6,15 @@ Visitors can browse available items and contact the seller using the information
 
 ---
 
-## Features
+## Some Features
 
 - Add, edit, and delete items with images
 - Mark items as sold
-- Multiple images per item, with primary image selection
-- Admin authentication and password management
-- **View counter** - Track how many times each item is viewed
-- **Site settings management** - Edit site name, welcome message, and contact info from admin panel
-- **Multi-language support** - Swedish and English with automatic currency switching
-- **Modern mobile navigation** - Responsive slide-out menu and touch-friendly interface
-- **Advanced image gallery** - Swipe navigation, pinch-to-zoom, and fullscreen viewing
-- Demo item and image on first run
-- Responsive design with mobile-first approach
+- Multiple images per item
+- Admin panel
+- Multi-language support - Swedish and English
+- Responsive slide-out menu and touch-friendly interface
+- Swipe navigation, pinch-to-zoom, and fullscreen viewin
 
 ---
 
@@ -62,7 +58,7 @@ Visitors can browse available items and contact the seller using the information
      ADMIN_PASSWORD=your-secure-password
      ```
    
-   **Environment Variables Explained:**
+   **ENVs Explained:**
    - `FLASK_ENV`: Controls Flask's runtime behavior
      - `development` - Enables debug mode, auto-reload, detailed error pages (for local development)
      - `production` - Optimized performance, generic error pages (for live deployment)
@@ -74,6 +70,8 @@ Visitors can browse available items and contact the seller using the information
    - `ADMIN_PASSWORD`: Password for admin login (change from default!)
 
 5. **Initialize the database:**
+   For local dev work you have to do this. For the containerized version it is part of the startup scrip in Dockerfile.
+
    ```sh
    python init_db.py
    ```
@@ -95,94 +93,62 @@ Visitors can browse available items and contact the seller using the information
 
 You can also run the app using Docker:
 
-I built an image so you can just run it with:
+I built a cross platform image on dockerhub so you can just run it with:
 
 ```sh
 docker run -d -p 8111:5000 \
 --name loppis \
 -v flea-market-uploads:/app/app/static/uploads \
 -v flea-market-db:/app/instance \
+-v logs:/app/logs \
 -e FLASK_ENV=production \
 -e SECRET_KEY=your-production-secret-key-here \
 -e ADMIN_USERNAME=admin \
 -e ADMIN_PASSWORD=your-secure-password \
 smintik/flea-market-app:latest
 ```
-It will create a container listening on port 8111. There are two persistent volumes:
+
+Docker Compose File
+```bash
+version: '3.8'
+
+services:
+  flea-market:
+    image: smintik/flea-market-app:latest
+    container_name: loppis
+    ports:
+      - "8111:5000"
+    volumes:
+      - uploads:/app/app/static/uploads
+      - db:/app/instance
+      - logs:/app/logs 
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=somethingsomethingelse
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=something-secure
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  db:
+  logs:
+```
+
+It will create a container listening on port 8111. There are persistent volumes:
 - `flea-market-uploads` - Stores uploaded item images
 - `flea-market-db` - Stores the SQLite database file
-
-**Note:** Site content (name, welcome message, contact info) is now managed through the admin panel at `/admin/site-settings` instead of environment variables.
-
-### Docker Management Commands
-```sh
-# Stop the container
-docker stop loppis
-
-# Start the container
-docker start loppis
-
-# View logs
-docker logs loppis
-
-# Remove container (keeps volumes)
-docker rm loppis
-
-# Remove container and volumes (⚠️ deletes all data)
-docker rm loppis && docker volume rm flea-market-uploads flea-market-db
-``` 
-
----
-
-## Configuration
-
-- App name and version are set in `app/version.py`.
-- Images are stored in `app/static/uploads/`.
-- Default and demo images are in `app/static/`.
-
----
-
-## Usage
-
-### Admin Features
-- Visit `/admin` to log in as admin
-- **Dashboard**: Add, edit, delete items and view item statistics (view counts)
-- **Site Settings**: Customize site name, welcome message, general info, and contact information
-- **Change Password**: Update your admin password securely
-
-### Visitor Experience
-- Browse available items with image galleries
-- View item details by clicking on items (automatically tracked)
-- Contact seller using the information provided in site settings
-
-### Database Migration
-If upgrading from an older version, run the migration scripts:
-```sh
-python migrate_add_view_count.py      # Adds view counter feature
-python migrate_add_site_settings.py   # Adds site settings management
-```
+- `logs` - Stores the logs that can be viewed also from the ui
 
 ---
 
 ## Multi-Language Support
 
-The app supports multiple languages with easy switching via the admin panel.
+The app supports multiple languages with  switching via the admin panel. Compiled are Swedish and English. Currency is a global setting you set in the site configuration panel.
 
-### Supported Languages
-- **Swedish (Svenska)** - Default language
-- **English** - Full translation available
+### For Devs
 
-### Supported Currencies
-- **SEK (Swedish Krona)** - "123.45 Kr" format
-- **USD (US Dollar)** - "$123.45" format
-
-### For Users
-1. **Admin Access**: Go to Admin → Site Settings
-2. **Language Selection**: Choose between Svenska and English
-3. **Currency Selection**: Choose between SEK and USD
-4. **Auto-Currency**: Language selection automatically suggests appropriate currency
-
-### For Developers
+Lot of this code has been generated using AI Coding Assistant, so things might not be optimal in some cases. 
 
 #### Translation Architecture
 The app uses Flask-Babel for internationalization with a fallback system:
@@ -272,7 +238,7 @@ msgid "Delete this item?"
 msgstr "Ta bort denna vara?"
 ```
 
-**Key Files**:
+**Key Support Scripts / Files**:
 - `extract_translations.py` - Scans code for translatable strings
 - `compile_translations.py` - Converts .po files to .mo files  
 - `create_safe_translations.py` - Fallback compilation method
@@ -296,7 +262,7 @@ msgstr "Ta bort denna vara?"
 
 **Encoding issues**:
 - The app includes fallback translations to handle encoding problems
-- Swedish characters (å, ä, ö) are converted to ASCII-safe versions if needed
+- Some characters (å, ä, ö) are converted to ASCII-safe versions if needed
 - Check `app/translations_fallback.py` for emergency translations
 
 ---
@@ -309,4 +275,4 @@ MIT License or whatever...
 
 ## Credits
 
-I developed this using some AI tools help and a bit of time. It was fun and it is useful to me, it might be to you too. 
+I developed this using some AI tools so kudos to all the devs before me whos code was use to train the models.
