@@ -40,6 +40,12 @@
             <a href="{{ url_for('main.set_language', language='en') }}" class="language-option" data-lang="en">
               <span>{{ _('English') }}</span>
             </a>
+            <a href="{{ url_for('main.set_language', language='sk') }}" class="language-option" data-lang="sk">
+              <span>Slovenčina</span>
+            </a>
+            <a href="{{ url_for('main.set_language', language='cs') }}" class="language-option" data-lang="cs">
+              <span>Čeština</span>
+            </a>
           </div>
         </div>
         
@@ -99,6 +105,14 @@
             <span>{{ _('English') }}</span>
             {% if get_locale() == 'en' %}<i class="fas fa-check ms-auto"></i>{% endif %}
           </a>
+          <a href="{{ url_for('main.set_language', language='sk') }}" class="mobile-language-option {{ 'active' if get_locale() == 'sk' else '' }}" data-lang="sk">
+            <span>Slovenčina</span>
+            {% if get_locale() == 'sk' %}<i class="fas fa-check ms-auto"></i>{% endif %}
+          </a>
+          <a href="{{ url_for('main.set_language', language='cs') }}" class="mobile-language-option {{ 'active' if get_locale() == 'cs' else '' }}" data-lang="cs">
+            <span>Čeština</span>
+            {% if get_locale() == 'cs' %}<i class="fas fa-check ms-auto"></i>{% endif %}
+          </a>
         </div>
         
         {% if current_user.is_authenticated %}
@@ -126,7 +140,7 @@
 
   <footer class="footer mt-5 py-3 bg-light text-center">
     <div class="container">
-      <span class="text-muted">{{ app_name }} v{{ app_version }}</span>
+      <span class="text-muted">{{ app_name }} v{{ app_version }}  {{ app_author | safe }}</span>
     </div>
   </footer>
 

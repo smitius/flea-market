@@ -10,7 +10,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from datetime import timedelta
 from config import Config
-from version import APP_NAME, APP_VERSION
+from version import APP_NAME, APP_VERSION, APP_AUTHOR
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -37,6 +37,7 @@ def create_app():
     app.config['APARTMENT_ADDRESS'] = os.getenv('APARTMENT_ADDRESS', 'N/A')
     app.config['APP_NAME'] = APP_NAME
     app.config['APP_VERSION'] = APP_VERSION
+    app.config['APP_AUTHOR'] = APP_AUTHOR
 
     db.init_app(app)
     login_manager.init_app(app)
@@ -104,7 +105,9 @@ def create_app():
     # Configure Babel with proper encoding
     app.config['LANGUAGES'] = {
         'sv': 'Svenska',
-        'en': 'English'
+        'en': 'English',
+        'sk': 'Slovenčina',
+        'cs': 'Čeština'
     }
     app.config['BABEL_DEFAULT_LOCALE'] = 'sv'
     app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
@@ -165,6 +168,7 @@ def create_app():
         return dict(
             app_name=app.config['APP_NAME'],
             app_version=app.config['APP_VERSION'],
+            app_author=app.config['APP_AUTHOR'],
             settings=settings,
             _=safe_gettext,  # Make safe translation function available in templates
             get_locale=get_locale,  # Make locale function available in templates

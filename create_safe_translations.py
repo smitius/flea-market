@@ -74,7 +74,7 @@ def create_simple_mo_file(translations, output_path):
             f.write(b'\x00')
 
 def create_safe_translations():
-    """Create safe translation files"""
+    """Create safe translation files for all supported languages"""
     
     # Swedish translations (without problematic characters)
     swedish_translations = {
@@ -87,7 +87,7 @@ def create_safe_translations():
         'More Pictures': 'Fler Bilder',
         'Admin Dashboard': 'Admin Instrumentpanel',
         'Add New Item': 'Lagg till ny vara',
-        'Sort by': 'Sortera efter',
+        'Sort by': 'Sortering',
         'Date Created': 'Skapad datum',
         'Most Viewed': 'Mest visade',
         'Name': 'Namn',
@@ -124,18 +124,74 @@ def create_safe_translations():
         'Delete this item?': 'Delete this item?'
     }
     
+    # Slovak translations
+    slovak_translations = {
+        'Dashboard': 'Nástenka',
+        'Logout': 'Odhlásiť sa',
+        'Admin': 'Admin',
+        'Contact': 'Kontakt',
+        'Price': 'Cena',
+        'Sold': 'Predané',
+        'More Pictures': 'Viac obrázkov',
+        'Admin Dashboard': 'Administrácia',
+        'Add New Item': 'Pridať novú položku',
+        'Sort by': 'Zoradiť podľa',
+        'Date Created': 'Dátum vytvorenia',
+        'Most Viewed': 'Najprezeranejšie',
+        'Name': 'Názov',
+        'Views': 'Zobrazenia',
+        'Actions': 'Akcie',
+        'Edit': 'Upraviť',
+        'Delete': 'Vymazať',
+        'Yes': 'Áno',
+        'No': 'Nie',
+        'Delete this item?': 'Vymazať túto položku?'
+    }
+    
+    # Czech translations
+    czech_translations = {
+        'Dashboard': 'Nástěnka',
+        'Logout': 'Odhlásit se',
+        'Admin': 'Admin',
+        'Contact': 'Kontakt',
+        'Price': 'Cena',
+        'Sold': 'Prodáno',
+        'More Pictures': 'Více obrázků',
+        'Admin Dashboard': 'Administrace',
+        'Add New Item': 'Přidat novou položku',
+        'Sort by': 'Seřadit podle',
+        'Date Created': 'Datum vytvoření',
+        'Most Viewed': 'Nejprohlíženější',
+        'Name': 'Název',
+        'Views': 'Zobrazení',
+        'Actions': 'Akce',
+        'Edit': 'Upravit',
+        'Delete': 'Smazat',
+        'Yes': 'Ano',
+        'No': 'Ne',
+        'Delete this item?': 'Smazat tuto položku?'
+    }
+    
     # Create directories if they don't exist
     os.makedirs('app/translations/sv/LC_MESSAGES', exist_ok=True)
     os.makedirs('app/translations/en/LC_MESSAGES', exist_ok=True)
+    os.makedirs('app/translations/sk/LC_MESSAGES', exist_ok=True)
+    os.makedirs('app/translations/cs/LC_MESSAGES', exist_ok=True)
     
-    # Create .mo files
+    # Create .mo files for all languages
     print("🔨 Creating Swedish translations...")
     create_simple_mo_file(swedish_translations, 'app/translations/sv/LC_MESSAGES/messages.mo')
     
     print("🔨 Creating English translations...")
     create_simple_mo_file(english_translations, 'app/translations/en/LC_MESSAGES/messages.mo')
     
-    print("✅ Safe translation files created!")
+    print("🔨 Creating Slovak translations...")
+    create_simple_mo_file(slovak_translations, 'app/translations/sk/LC_MESSAGES/messages.mo')
+    
+    print("🔨 Creating Czech translations...")
+    create_simple_mo_file(czech_translations, 'app/translations/cs/LC_MESSAGES/messages.mo')
+    
+    print("✅ Safe translation files created for all languages!")
     print("🚀 You can now restart your Flask app")
 
 if __name__ == '__main__':

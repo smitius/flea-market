@@ -1,144 +1,486 @@
 # Swedish translations for Flea Market App
 # Copyright (C) 2025
-# This file is distributed under the same license as the Flea Market App project.
+# This file is distributed under the same license as the Flea Market App
+# project.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Flea Market App 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-06 08:30+0000\n"
+"POT-Creation-Date: 2025-09-07 10:04+0200\n"
 "PO-Revision-Date: 2025-01-06 08:30+0000\n"
 "Last-Translator: \n"
 "Language: sv\n"
 "Language-Team: Swedish\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.17.0\n"
 
-# Navigation
-msgid "Dashboard"
-msgstr "Instrumentpanel"
-
-msgid "Logout"
-msgstr "Logga ut"
-
-msgid "Admin"
-msgstr "Admin"
-
-# Language Selector
-msgid "Language"
-msgstr "Språk"
-
+#: app/templates/base.html:38 app/templates/base.html:101
 msgid "Swedish"
 msgstr "Svenska"
 
+#: app/templates/base.html:41 app/templates/base.html:105
 msgid "English"
 msgstr "Engelska"
 
 # Theme Toggle
+#: app/templates/base.html:53 app/templates/base.html:81
 msgid "Switch to dark mode"
 msgstr "Växla till mörkt läge"
 
-msgid "Switch to light mode"
-msgstr "Växla till ljust läge"
+# Navigation
+#: app/templates/base.html:59 app/templates/base.html:120
+msgid "Dashboard"
+msgstr "Instrumentpanel"
+
+#: app/templates/base.html:62 app/templates/base.html:123
+msgid "Logout"
+msgstr "Logga ut"
+
+#: app/templates/base.html:66 app/templates/base.html:127
+msgid "Admin"
+msgstr "Admin"
+
+# Language Selector
+#: app/templates/base.html:98
+msgid "Language"
+msgstr "Språk"
 
 # Main page
+#: app/templates/index.html:24
 msgid "Contact"
 msgstr "Kontakt"
 
+# Search and Sort
+#: app/templates/index.html:53
+msgid "Search items..."
+msgstr "Sok varor..."
+
+#: app/templates/index.html:57
+msgid "Clear search"
+msgstr "Rensa sokning"
+
+#: app/templates/admin/dashboard.html:21 app/templates/index.html:71
+msgid "Sort by"
+msgstr "Sortering"
+
+#: app/templates/index.html:72 app/templates/index.html:84
+msgid "Oldest first"
+msgstr "Aldsta forst"
+
+#: app/templates/index.html:73 app/templates/index.html:88
+msgid "Price: Low to High"
+msgstr "Pris: Lag till hog"
+
+#: app/templates/index.html:74 app/templates/index.html:91
+msgid "Price: High to Low"
+msgstr "Pris: Hog till lag"
+
+#: app/templates/index.html:75 app/templates/index.html:95
+msgid "Name A-Z"
+msgstr "Namn A-O"
+
+#: app/templates/index.html:76 app/templates/index.html:98
+msgid "Most Popular"
+msgstr "Mest populara"
+
+#: app/templates/index.html:77 app/templates/index.html:81
+msgid "Newest first"
+msgstr "Nyaste forst"
+
+#: app/templates/index.html:111
+msgid "items found for"
+msgstr "varor hittade for"
+
+#: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:27
+#: app/templates/admin/dashboard.html:35 app/templates/index.html:159
 msgid "Price"
 msgstr "Pris"
 
+#: app/templates/admin/dashboard.html:37 app/templates/index.html:167
 msgid "Sold"
 msgstr "Såld"
 
+#: app/templates/index.html:178
+msgid "No items found"
+msgstr "Inga varor hittades"
+
+#: app/templates/index.html:179
+msgid "No items match your search for"
+msgstr "Inga varor matchar din sokning efter"
+
+#: app/templates/index.html:181
+msgid "Show all items"
+msgstr "Visa alla varor"
+
+#: app/templates/index.html:185
+msgid "No items available"
+msgstr "Inga varor tillgangliga"
+
+#: app/templates/index.html:186
+msgid "There are currently no items for sale."
+msgstr "Det finns for narvarande inga varor till salu."
+
+#: app/templates/index.html:197
 msgid "More Pictures"
 msgstr "Fler Bilder"
 
 # Admin Dashboard
+#: app/templates/admin/dashboard.html:2 app/templates/admin/dashboard.html:4
 msgid "Admin Dashboard"
 msgstr "Admin Instrumentpanel"
 
+#: app/templates/admin/dashboard.html:18
 msgid "Add New Item"
 msgstr "Lagg till ny vara"
 
-msgid "Sort by"
-msgstr "Sortera efter"
-
-msgid "Date Created"
-msgstr "Skapad datum"
-
-msgid "Most Viewed"
-msgstr "Mest visade"
-
-msgid "Name"
-msgstr "Namn"
-
+#: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:36
 msgid "Views"
 msgstr "Visningar"
 
+#: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:26
+#: app/templates/admin/dashboard.html:34
+msgid "Name"
+msgstr "Namn"
+
+#: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:24
+msgid "Date Created"
+msgstr "Skapad datum"
+
+#: app/templates/admin/dashboard.html:25
+msgid "Most Viewed"
+msgstr "Mest visade"
+
+#: app/templates/admin/dashboard.html:38
 msgid "Actions"
 msgstr "Atgarder"
 
-msgid "Edit"
-msgstr "Redigera"
-
-msgid "Delete"
-msgstr "Ta bort"
-
+#: app/templates/admin/dashboard.html:49
 msgid "Yes"
 msgstr "Ja"
 
+#: app/templates/admin/dashboard.html:49
 msgid "No"
 msgstr "Nej"
 
+#: app/templates/admin/dashboard.html:51
+msgid "Edit"
+msgstr "Redigera"
+
+#: app/templates/admin/dashboard.html:53
 msgid "Delete this item?"
 msgstr "Ta bort denna vara?"
 
-# Search and Sort
-msgid "Search items..."
-msgstr "Sok varor..."
+#: app/templates/admin/dashboard.html:53
+msgid "Delete"
+msgstr "Ta bort"
 
-msgid "Clear search"
-msgstr "Rensa sokning"
+#: venv/Lib/site-packages/click/_termui_impl.py:600
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
 
-msgid "Sort by"
-msgstr "Sortera efter"
+#: venv/Lib/site-packages/click/_termui_impl.py:604
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
 
-msgid "Newest first"
-msgstr "Nyaste forst"
+#: venv/Lib/site-packages/click/core.py:1084
+#: venv/Lib/site-packages/click/core.py:1121
+#, python-brace-format
+msgid "{text} {deprecated_message}"
+msgstr ""
 
-msgid "Oldest first"
-msgstr "Aldsta forst"
+#: venv/Lib/site-packages/click/core.py:1140
+#, fuzzy
+msgid "Options"
+msgstr "Atgarder"
 
-msgid "Price: Low to High"
-msgstr "Pris: Lag till hog"
+#: venv/Lib/site-packages/click/core.py:1202
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "Price: High to Low"
-msgstr "Pris: Hog till lag"
+#: venv/Lib/site-packages/click/core.py:1221
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated.{extra_message}"
+msgstr ""
 
-msgid "Name A-Z"
-msgstr "Namn A-O"
+#: venv/Lib/site-packages/click/core.py:1405
+msgid "Aborted!"
+msgstr ""
 
-msgid "Most Popular"
-msgstr "Mest populara"
+#: venv/Lib/site-packages/click/core.py:1779
+msgid "Commands"
+msgstr ""
 
-msgid "items found for"
-msgstr "varor hittade for"
+#: venv/Lib/site-packages/click/core.py:1810
+msgid "Missing command."
+msgstr ""
 
-msgid "No items found"
-msgstr "Inga varor hittades"
+#: venv/Lib/site-packages/click/core.py:1888
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr ""
 
-msgid "No items match your search for"
-msgstr "Inga varor matchar din sokning efter"
+#: venv/Lib/site-packages/click/core.py:2303
+msgid "Value must be an iterable."
+msgstr ""
 
-msgid "Show all items"
-msgstr "Visa alla varor"
+#: venv/Lib/site-packages/click/core.py:2324
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "No items available"
-msgstr "Inga varor tillgangliga"
+#: venv/Lib/site-packages/click/core.py:2404
+#, python-brace-format
+msgid ""
+"DeprecationWarning: The {param_type} {name!r} is "
+"deprecated.{extra_message}"
+msgstr ""
 
-msgid "There are currently no items for sale."
-msgstr "Det finns for narvarande inga varor till salu."
+#: venv/Lib/site-packages/click/core.py:2807
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2810
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2814
+msgid "required"
+msgstr ""
+
+#: venv/Lib/site-packages/click/core.py:2870
+msgid "(dynamic)"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:522
+msgid "Show the version and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/decorators.py:548
+msgid "Show this message and exit."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:50
+#: venv/Lib/site-packages/click/exceptions.py:89
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:81
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:130
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:132
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:190
+msgid "Missing argument"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:192
+msgid "Missing option"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:194
+msgid "Missing parameter"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:196
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:203
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:223
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:235
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/exceptions.py:282
+msgid "unknown error"
+msgstr ""
+
+#: venv/Lib/site-packages/click/exceptions.py:289
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:200
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:383
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: venv/Lib/site-packages/click/parser.py:444
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: venv/Lib/site-packages/click/shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:162
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:178
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:180
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:191
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:247
+msgid "Error: invalid input"
+msgstr ""
+
+#: venv/Lib/site-packages/click/termui.py:866
+msgid "Press any key to continue..."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:332
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:369
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:460
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/Lib/site-packages/click/types.py:482
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:538
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:679
+#, python-brace-format
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:703
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:893
+msgid "file"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:895
+msgid "directory"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:897
+msgid "path"
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:944
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:953
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:961
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:970
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:979
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:988
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: venv/Lib/site-packages/click/types.py:1055
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#~ msgid "Switch to light mode"
+#~ msgstr "Växla till ljust läge"
+

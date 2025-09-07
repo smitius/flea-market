@@ -1,18 +1,17 @@
-# English translations for Flea Market App
-# Copyright (C) 2025
-# This file is distributed under the same license as the Flea Market App
-# project.
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Flea Market App 1.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-09-07 10:04+0200\n"
-"PO-Revision-Date: 2025-01-06 08:30+0000\n"
-"Last-Translator: \n"
-"Language: en\n"
-"Language-Team: English\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,163 +19,157 @@ msgstr ""
 
 #: app/templates/base.html:38 app/templates/base.html:101
 msgid "Swedish"
-msgstr "Swedish"
+msgstr ""
 
 #: app/templates/base.html:41 app/templates/base.html:105
 msgid "English"
-msgstr "English"
+msgstr ""
 
-# Theme Toggle
 #: app/templates/base.html:53 app/templates/base.html:81
 msgid "Switch to dark mode"
-msgstr "Switch to dark mode"
+msgstr ""
 
-# Navigation
 #: app/templates/base.html:59 app/templates/base.html:120
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr ""
 
 #: app/templates/base.html:62 app/templates/base.html:123
 msgid "Logout"
-msgstr "Logout"
+msgstr ""
 
 #: app/templates/base.html:66 app/templates/base.html:127
 msgid "Admin"
-msgstr "Admin"
+msgstr ""
 
-# Language Selector
 #: app/templates/base.html:98
 msgid "Language"
-msgstr "Language"
+msgstr ""
 
-# Main page
 #: app/templates/index.html:24
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
-# Search and Sort
 #: app/templates/index.html:53
 msgid "Search items..."
-msgstr "Search items..."
+msgstr ""
 
 #: app/templates/index.html:57
 msgid "Clear search"
-msgstr "Clear search"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:21 app/templates/index.html:71
 msgid "Sort by"
-msgstr "Sort by"
+msgstr ""
 
 #: app/templates/index.html:72 app/templates/index.html:84
 msgid "Oldest first"
-msgstr "Oldest first"
+msgstr ""
 
 #: app/templates/index.html:73 app/templates/index.html:88
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr ""
 
 #: app/templates/index.html:74 app/templates/index.html:91
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr ""
 
 #: app/templates/index.html:75 app/templates/index.html:95
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr ""
 
 #: app/templates/index.html:76 app/templates/index.html:98
 msgid "Most Popular"
-msgstr "Most Popular"
+msgstr ""
 
 #: app/templates/index.html:77 app/templates/index.html:81
 msgid "Newest first"
-msgstr "Newest first"
+msgstr ""
 
 #: app/templates/index.html:111
 msgid "items found for"
-msgstr "items found for"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:27
 #: app/templates/admin/dashboard.html:35 app/templates/index.html:159
 msgid "Price"
-msgstr "Price"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:37 app/templates/index.html:167
 msgid "Sold"
-msgstr "Sold"
+msgstr ""
 
 #: app/templates/index.html:178
 msgid "No items found"
-msgstr "No items found"
+msgstr ""
 
 #: app/templates/index.html:179
 msgid "No items match your search for"
-msgstr "No items match your search for"
+msgstr ""
 
 #: app/templates/index.html:181
 msgid "Show all items"
-msgstr "Show all items"
+msgstr ""
 
 #: app/templates/index.html:185
 msgid "No items available"
-msgstr "No items available"
+msgstr ""
 
 #: app/templates/index.html:186
 msgid "There are currently no items for sale."
-msgstr "There are currently no items for sale."
+msgstr ""
 
 #: app/templates/index.html:197
 msgid "More Pictures"
-msgstr "More Pictures"
+msgstr ""
 
-# Admin Dashboard
 #: app/templates/admin/dashboard.html:2 app/templates/admin/dashboard.html:4
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:18
 msgid "Add New Item"
-msgstr "Add New Item"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:36
 msgid "Views"
-msgstr "Views"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:26
 #: app/templates/admin/dashboard.html:34
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:21 app/templates/admin/dashboard.html:24
 msgid "Date Created"
-msgstr "Date Created"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:25
 msgid "Most Viewed"
-msgstr "Most Viewed"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:38
 msgid "Actions"
-msgstr "Actions"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:49
 msgid "Yes"
-msgstr "Yes"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:49
 msgid "No"
-msgstr "No"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:51
 msgid "Edit"
-msgstr "Edit"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:53
 msgid "Delete this item?"
-msgstr "Delete this item?"
+msgstr ""
 
 #: app/templates/admin/dashboard.html:53
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 #: venv/Lib/site-packages/click/_termui_impl.py:600
 #, python-brace-format
@@ -195,9 +188,8 @@ msgid "{text} {deprecated_message}"
 msgstr ""
 
 #: venv/Lib/site-packages/click/core.py:1140
-#, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr ""
 
 #: venv/Lib/site-packages/click/core.py:1202
 #, python-brace-format
@@ -480,7 +472,4 @@ msgid "{len_type} values are required, but {len_value} was given."
 msgid_plural "{len_type} values are required, but {len_value} were given."
 msgstr[0] ""
 msgstr[1] ""
-
-#~ msgid "Switch to light mode"
-#~ msgstr "Switch to light mode"
 

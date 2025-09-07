@@ -13,7 +13,7 @@ TRANSLATIONS = {
         'More Pictures': 'Fler Bilder',
         'Admin Dashboard': 'Admin Instrumentpanel',
         'Add New Item': 'Lagg till ny vara',
-        'Sort by': 'Sortera efter',
+        'Sort by': 'Sortering',
         'Date Created': 'Skapad datum',
         'Most Viewed': 'Mest visade',
         'Name': 'Namn',
@@ -27,7 +27,7 @@ TRANSLATIONS = {
         # Search and Sort
         'Search items...': 'Sok varor...',
         'Clear search': 'Rensa sokning',
-        'Sort by': 'Sortera efter',
+        'Sort by': 'Sortering',
         'Newest first': 'Nyaste forst',
         'Oldest first': 'Aldsta forst',
         'Price: Low to High': 'Pris: Lag till hog',
