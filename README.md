@@ -8,29 +8,22 @@ Visitors can browse available items and contact the seller using the information
 
 ## Some Features
 
-- Add, edit, and delete items with images
-- Mark items as sold
-- Multiple images per item
+- Add, edit, and delete items with images, search
+- Mark items as sold, manage image priority, click counter
 - Admin panel
-- Multi-language support - Swedish and English
-- Responsive slide-out menu and touch-friendly interface
-- Swipe navigation, pinch-to-zoom, and fullscreen viewin
-
+- Multi-language support 
+- Mobile friendly
 ---
 
-## Requirements
+## Built on
 
 - Python 3.8+
-- Flask
-- Flask-SQLAlchemy
-- Flask-Login
-- Flask-Babel (for multi-language support)
-- Flask-Dotenv
+- Flask Components
 - Pillow
 
 ---
 
-## Installation
+## Local Installation
 
 1. **Clone the repository:**
    ```sh
@@ -89,9 +82,9 @@ Visitors can browse available items and contact the seller using the information
 
 ---
 
-## Docker
+## Docker Installation
 
-You can also run the app using Docker:
+You can also run the app using Docker. Build the image yourself with the attached Dockerfile or use my pre-built image.
 
 I built a cross platform image on dockerhub so you can just run it with:
 
@@ -142,9 +135,9 @@ It will create a container listening on port 8111. There are persistent volumes:
 
 ---
 
-## Multi-Language Support
+## Multi-Language
 
-The app supports multiple languages with  switching via the admin panel. Compiled are Swedish and English. Currency is a global setting you set in the site configuration panel.
+The app supports multiple languages with  switching via the admin panel. Compiled are Swedish and English. Currency as well as default language is a global setting you set in the site configuration panel.
 
 ### For Devs
 
@@ -170,7 +163,9 @@ app/translations/
 
 #### Adding New Translatable Text
 
-1. **In Templates**: Use the translation function
+How to use this:
+
+1. **In Templates**:
    ```html
    <!-- Before -->
    <h1>Contact</h1>
@@ -192,11 +187,10 @@ app/translations/
 
 4. **Edit Translation Files**: Update the .po files
    ```bash
-   # Edit Swedish translations
+   # Edit translations
    nano app/translations/sv/LC_MESSAGES/messages.po
-   
-   # Edit English translations  
    nano app/translations/en/LC_MESSAGES/messages.po
+   ...
    ```
 
 5. **Compile Translations**: Generate .mo files
@@ -264,6 +258,8 @@ msgstr "Ta bort denna vara?"
 - The app includes fallback translations to handle encoding problems
 - Some characters (å, ä, ö) are converted to ASCII-safe versions if needed
 - Check `app/translations_fallback.py` for emergency translations
+
+I have to work more on these special characters
 
 ---
 
