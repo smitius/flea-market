@@ -15,12 +15,19 @@ Visitors can browse available items and contact the seller using the information
 - Mobile friendly
 ---
 
+| Screenshots |   |
+|-------------|---|
+| [<img src="./app/static/assets/1.jpg" width="300">](./app/static/assets/1.jpg) | [<img src="./app/static/assets/2.jpg" width="300">](./app/static/assets/2.jpg) |
+| [<img src="./app/static/assets/3.jpg" width="300">](./app/static/assets/3.jpg) | [<img src="./app/static/assets/4.jpg" width="300">](./app/static/assets/4.jpg) |
+| [<img src="./app/static/assets/5.jpg" width="300">](./app/static/assets/5.jpg) | [<img src="./app/static/assets/6.jpg" width="300">](./app/static/assets/6.jpg) |
+| [<img src="./app/static/assets/7.jpg" width="300">](./app/static/assets/7.jpg) | [<img src="./app/static/assets/8.jpg" width="300">](./app/static/assets/8.jpg) |
+
+
 ## Built on
 
 - Python 3.8+
 - Flask Components
 - Pillow
-
 ---
 
 ## Local Installation
