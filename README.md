@@ -266,7 +266,7 @@ msgstr "Ta bort denna vara?"
 - Some characters (å, ä, ö) are converted to ASCII-safe versions if needed
 - Check `app/translations_fallback.py` for emergency translations
 
-I have to work more on these special characters
+I have to work on these special characters...
 
 ---
 
@@ -278,4 +278,4 @@ MIT License or whatever...
 
 ## Credits
 
-I developed this using some AI tools so kudos to all the devs before me whos code was use to train the models.
+I developed this using some AI tools so kudos to all the devs before me their code was use to train the models.
